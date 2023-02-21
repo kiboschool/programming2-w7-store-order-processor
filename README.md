@@ -54,7 +54,6 @@ So for the example input:
 The output should be this:
 
 ```
-Processed the order.
 Remaining inventory:
 jacket Fruche 18
 jacket Onalaja 20
