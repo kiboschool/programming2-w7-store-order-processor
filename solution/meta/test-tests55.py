@@ -5,9 +5,6 @@ import test_store_order_processor
 from main import starting_value, types, brands
 starting_value = 20
 
-# provide a bunch of broken implementations:
-# the tests running with these implementations should fail.
-
 # the 'explanation' comments won't be in the copy of this file given to students
 
 # this is a long file so students can't cheat by copying a working file in from here.
@@ -658,8 +655,6 @@ class ExampleImpl008: # explanation: works
 
         return results
     
-ExampleImpl008.expect_pass = True
-    
 class ExampleImpl009: # explanation: says full outfit regardless of brand
     def __init__(self):
         self.inventory = {}
@@ -1237,7 +1232,7 @@ classes = [
     ExampleImpl015, # explanation, gives wrong inventory-previous and misspells Invalid input
     ]
 
-def run_all_tests(Cls):
+def runAllTests(Cls):
     test_store_order_processor.main.StoreOrderProcessor = Cls
     test_instance = test_store_order_processor.TestStoreOrderProcessor()
     for method_name in dir(test_instance):
@@ -1249,14 +1244,15 @@ def run_all_tests(Cls):
 
 def test_tests():
     for Cls in classes:
-        expect_tests_to_pass = 'expect_pass' in dir(Cls)
+        expectTestsToPass = Cls == ExampleImpl008
         try:
-            run_all_tests(Cls)
-            tests_passed = True
+            runAllTests(Cls)
+            testsPassed = True
         except:
-            tests_passed = False
+            testsPassed = False
         
-        assert expect_tests_to_pass == tests_passed
+        assert expectTestsToPass == testsPassed
+            
 
 if __name__ == '__main__':
     test_tests()

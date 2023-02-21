@@ -1,3 +1,4 @@
+
 import json
 
 types = ['jacket', 'slacks', 'pair_of_shoes']

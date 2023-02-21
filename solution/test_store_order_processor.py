@@ -1,13 +1,7 @@
+
 import unittest
 import main
 
-def assertEqualStrModuloNewlines(s1, s2):
-    s1 = s1.replace('\r\n', '\n').strip()
-    s2 = s2.replace('\r\n', '\n').strip()
-    if s1 != s2:
-        print(s1+'---')
-        print(s2+'---')
-    assert s1==s2
 
 class TestStoreOrderProcessor(unittest.TestCase):
     def test_crashes_on_invalid_type(self):
@@ -172,12 +166,18 @@ pair_of_shoes kente 19
 Contains full outfit for a brand''')
 
 
-
-
+def assertEqualStrModuloNewlines(s1, s2):
+    s1 = s1.replace('\r\n', '\n').strip()
+    s2 = s2.replace('\r\n', '\n').strip()
+    if False:
+        if s1 != s2:
+            print(s1+'---')
+            print(s2+'---')
+    
+    assert s1==s2
 
 
 
 if __name__ == "__main__":
     unittest.main()
-
 
