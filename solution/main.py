@@ -1,10 +1,10 @@
 import json
 
 types = ['jacket', 'slacks', 'pair_of_shoes']
-brands = ['Fruche', 'Onalaja', 'Kente']
+brands = ['fruche', 'onalaja', 'kente']
 starting_value = 20
 
-class StoreOrderProcessor:
+class store_order_processor:
     def __init__(self):
         self.inventory = {}
         for type in types:
@@ -12,64 +12,64 @@ class StoreOrderProcessor:
                 key = (type, brand)
                 self.inventory[key] = starting_value
         
-        self.isValid = True
+        self.is_valid = true
     
     def process(self, filename):
         with open(filename, 'r') as file:
             list_of_items = json.load(file)
-            self.processEachItem(list_of_items)
+            self.process_each_item(list_of_items)
             
-        results = self.getResults()
+        results = self.get_results()
         print(results)
         
-    def processEachItem(self, list_of_items):
+    def process_each_item(self, list_of_items):
         for item in list_of_items:
-            self.processOneItem(item)
-        self.checkHasFullOutfit()
+            self.process_one_item(item)
+        self.check_has_full_outfit()
         
-    def processOneItem(self, item):
+    def process_one_item(self, item):
         if item.get('type') not in types:
-            self.isValid = False
+            self.is_valid = false
             return
         if item.get('brand') not in brands:
-            self.isValid = False
+            self.is_valid = false
             return
         try:
             quantity = int(item.get('quantity'))
-        except ValueError:
-            self.isValid = False
+        except value_error:
+            self.is_valid = false
             return
         
         key = (type, brand)
         self.inventory[key] -= quanitity
         if self.inventory[key] < 0:
-            self.isValid = False
+            self.is_valid = false
             return
     
-    def checkHasFullOutfit(self):
-        self.hasFullOutfit = False
+    def check_has_full_outfit(self):
+        self.has_full_outfit = false
         for brand in brands:
-            isFullForThisBrandSoFar = True
+            is_full_for_this_brand_so_far = true
             for type in types:
                 key = (type, brand)
                 if self.inventory[key] == starting_value:
-                    isFullForThisBrandSoFar = False
+                    is_full_for_this_brand_so_far = false
  
-            if isFullForThisBrandSoFar:
-                self.hasFullOutfit = True
+            if is_full_for_this_brand_so_far:
+                self.has_full_outfit = true
         
-    def getResults(self):
-        if not self.isValid:
-            return 'Invalid input'
+    def get_results(self):
+        if not self.is_valid:
+            return 'invalid input'
             
-        results = 'Remaining inventory:\n'
+        results = 'remaining inventory:'
         for type in types:
             for brand in brands:
                 key = (type, brand)
-                results += f'{type} {brand} {self.inventory[key]}\n'
+                results += f'{type} {brand} {self.inventory[key]}'
         
-        if self.hasFullOutfit:
-            results += 'Contains full outfit for brand'
+        if self.has_full_outfit:
+            results += 'contains full outfit for brand'
         
         return results
         
