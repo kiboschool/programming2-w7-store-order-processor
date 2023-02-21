@@ -16,7 +16,7 @@ starting_value = 20
 # and fixing it, if they do that more power to them :p
 # could put a working class and inherit, but then students could see this
 
-class ExampleImpl001: # explanation: crashes on invalid type
+class ExampleImpl001:
     def __init__(self):
         self.inventory = {}
         for type in types:
@@ -95,7 +95,7 @@ class ExampleImpl001: # explanation: crashes on invalid type
         return results
 
 
-class ExampleImpl002: # explanation: crashes on invalid brand
+class ExampleImpl002:
     def __init__(self):
         self.inventory = {}
         for type in types:
@@ -173,7 +173,7 @@ class ExampleImpl002: # explanation: crashes on invalid brand
 
         return results
 
-class ExampleImpl003: # explanation: crashes on empty string or None quantity
+class ExampleImpl003:
     def __init__(self):
         self.inventory = {}
         for type in types:
@@ -258,7 +258,7 @@ class ExampleImpl003: # explanation: crashes on empty string or None quantity
 
         return results
 
-class ExampleImpl004: # explanation: crashes on alphabetic quantity
+class ExampleImpl004:
     def __init__(self):
         self.inventory = {}
         for type in types:
@@ -341,7 +341,7 @@ class ExampleImpl004: # explanation: crashes on alphabetic quantity
 
         return results
 
-class ExampleImpl005: # explanation: still valid if exceeds inventory across multiple rows
+class ExampleImpl005:
     def __init__(self):
         self.inventory = {}
         for type in types:
@@ -421,7 +421,7 @@ class ExampleImpl005: # explanation: still valid if exceeds inventory across mul
 
         return results
         
-class ExampleImpl006: # explanation: off-by-one-error, says invalid too early
+class ExampleImpl006:
     def __init__(self):
         self.inventory = {}
         for type in types:
@@ -501,7 +501,7 @@ class ExampleImpl006: # explanation: off-by-one-error, says invalid too early
 
         return results
 
-class ExampleImpl007: # explanation: still valid if exceeds inventory
+class ExampleImpl007:
     def __init__(self):
         self.inventory = {}
         for type in types:
@@ -578,7 +578,7 @@ class ExampleImpl007: # explanation: still valid if exceeds inventory
 
         return results
 
-class ExampleImpl008: # explanation: works
+class ExampleImpl008:
     def __init__(self):
         self.inventory = {}
         for type in types:
@@ -660,7 +660,7 @@ class ExampleImpl008: # explanation: works
     
 ExampleImpl008.expect_pass = True
     
-class ExampleImpl009: # explanation: says full outfit regardless of brand
+class ExampleImpl009:
     def __init__(self):
         self.inventory = {}
         for type in types:
@@ -737,7 +737,7 @@ class ExampleImpl009: # explanation: says full outfit regardless of brand
 
         return results
 
-class ExampleImpl010: # explanation: says full outfit if there are 2 slacks and 1 jacket
+class ExampleImpl010:
     def __init__(self):
         self.inventory = {}
         for type in types:
@@ -808,7 +808,7 @@ class ExampleImpl010: # explanation: says full outfit if there are 2 slacks and 
 
         return results
 
-class ExampleImpl011: # explanation: says full outfit even if one of the quantities is 0
+class ExampleImpl011:
     def __init__(self):
         self.inventory = {}
         self.saw_key = {}
@@ -890,7 +890,7 @@ class ExampleImpl011: # explanation: says full outfit even if one of the quantit
 
         return results
 
-class ExampleImpl012: # explanation: crashes if given 2 complete outfits (less realistic, but student should cover this in the tests)
+class ExampleImpl012:
     def __init__(self):
         self.inventory = {}
         for type in types:
@@ -973,7 +973,7 @@ class ExampleImpl012: # explanation: crashes if given 2 complete outfits (less r
 
         return results
 
-class ExampleImpl013: # explanation: gives wrong inventory-adds instead of subtracts
+class ExampleImpl013:
     def __init__(self):
         self.inventory = {}
         for type in types:
@@ -1053,7 +1053,7 @@ class ExampleImpl013: # explanation: gives wrong inventory-adds instead of subtr
 
         return results
 
-class ExampleImpl014: # explanation: gives wrong inventory-misses one of the brands
+class ExampleImpl014:
     def __init__(self):
         self.inventory = {}
         for type in types:
@@ -1136,7 +1136,7 @@ class ExampleImpl014: # explanation: gives wrong inventory-misses one of the bra
 
         return results
 
-class ExampleImpl015: # explanation: gives wrong inventory-previous and misspells Invalid input
+class ExampleImpl015:
     def __init__(self):
         self.inventory = {}
         for type in types:
@@ -1220,21 +1220,21 @@ class ExampleImpl015: # explanation: gives wrong inventory-previous and misspell
         return results
 
 classes = [
-    ExampleImpl001, # explanation, crashes on invalid type
-    ExampleImpl002, # explanation, crashes on invalid brand
-    ExampleImpl003, # explanation, crashes on empty string or None quantity
-    ExampleImpl004, # explanation, crashes on alphabetic quantity
-    ExampleImpl005, # explanation, still valid if exceeds inventory across multiple rows
-    ExampleImpl006, # explanation, off-by-one-error, says invalid too early
-    ExampleImpl007, # explanation, still valid if exceeds inventory
-    ExampleImpl008, # explanation, works -- need one that works, or student will pass everything if all tests fail
-    ExampleImpl009, # explanation, says full outfit regardless of brand
-    ExampleImpl010, # explanation, says full outfit if there are 2 slacks and 1 jacket
-    ExampleImpl011, # explanation, says full outfit even if one of the quantities is 0
-    ExampleImpl012, # explanation, crashes if given 2 complete outfits (less realistic, but student should cover this in the tests)
-    ExampleImpl013, # explanation, gives wrong inventory-adds instead of subtracts
-    ExampleImpl014, # explanation, gives wrong inventory-misses one of the brands
-    ExampleImpl015, # explanation, gives wrong inventory-previous and misspells Invalid input
+    ExampleImpl001,
+    ExampleImpl002,
+    ExampleImpl003,
+    ExampleImpl004,
+    ExampleImpl005,
+    ExampleImpl006,
+    ExampleImpl007,
+    ExampleImpl008,
+    ExampleImpl009,
+    ExampleImpl010,
+    ExampleImpl011,
+    ExampleImpl012,
+    ExampleImpl013,
+    ExampleImpl014,
+    ExampleImpl015,
     ]
 
 def run_all_tests(Cls):
