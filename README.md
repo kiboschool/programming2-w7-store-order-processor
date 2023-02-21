@@ -20,6 +20,15 @@ An example order looks like this,
 
 The store has 3 types of merchandise: `jacket`, `slacks`, and `pair_of_shoes`. There are 3 brands the store sells, `fruche`, `onalaja` and `kente`. (For this project these are the only attributes needed as part of the order).
 
+<img src="img/sh1.png" width="128" height="128" />
+<img src="img/sh2.png" width="128" height="128" />
+
+<img src="img/sla1.png" width="128" height="128" />
+<img src="img/sla2.png" width="128" height="128" />
+
+<img src="img/sui1.png" width="128" height="128" />
+<img src="img/sui2.png" width="128" height="128" />
+
 Every item starts off with a quantity of 20 in the inventory. So, in the beginning, there will be 20 Fruche jackets, 20 Onalaja jackets, 20 Kente jackets, 20 Fruche slacks, 20 Onalaja slacks, etc. For simplicity, this project won't connect to a database or persist the results to a file - it will just print the results. The inventories reset to 20 each run.
 
 For the example input, the program should print this as a result:
@@ -83,5 +92,5 @@ You should check for all features,
 * including cases where there is a complete outfit for a brand
 * checking that invalid input will cause the output to be 'Invalid input'
 
-(This project is autograded, and so you will see the GitHub actions turn green when your project is complete. We are using a script that goes through the test cases you have written and looks for completeness).
+(This project is autograded, and so you will see the GitHub actions status turn green when your project is complete. We are using a script that goes through the test cases you have written and looks for completeness).
 
