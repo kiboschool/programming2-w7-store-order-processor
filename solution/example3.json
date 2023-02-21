@@ -1,4 +1,4 @@
 [
-    {"type": "jacket", "brand": "Fruche", "quantity": "2"},
-    {"type": "jcket(invalid)", "brand": "Kente", "quantity": "1"}
+    {"type": "jacket", "brand": "fruche", "quantity": "2"},
+    {"type": "jcket(invalid)", "brand": "kente", "quantity": "1"}
 ]

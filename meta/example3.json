@@ -1,0 +1,4 @@
+[
+    {"type": "jacket", "brand": "Fruche", "quantity": "2"},
+    {"type": "jcket(invalid)", "brand": "Kente", "quantity": "1"}
+]

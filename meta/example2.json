@@ -1,0 +1,6 @@
+[
+    {"type": "jacket", "brand": "Fruche", "quantity": "2"},
+    {"type": "slacks", "brand": "Kente", "quantity": "1"},
+    {"type": "slacks", "brand": "Fruche", "quantity": "1"},
+    {"type": "pair_of_shoes", "brand": "Fruche", "quantity": "1"}
+]
