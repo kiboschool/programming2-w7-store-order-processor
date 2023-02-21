@@ -565,7 +565,87 @@ class Broken007: # explanation: still valid if exceeds inventory
 
         return results
 
-class Broken008: # explanation: says full outfit regardless of brand
+class Broken008: # explanation: works
+    def __init__(self):
+        self.inventory = {}
+        for type in types:
+            for brand in brands:
+                key = (type, brand)
+                self.inventory[key] = starting_value
+
+        self.is_valid = True
+
+    def process_list(self, list_of_items):
+        for item in list_of_items:
+            self.process_one_item(item)
+
+        self.check_has_full_outfit()
+        return self.get_result_string()
+
+    def process(self, filename):
+        with open(filename, 'r') as file:
+            try:
+                list_of_items = json.load(file)
+            except:
+                self.is_valid = False
+                list_of_items = []
+
+        results = self.process_list(list_of_items)
+        print(results)
+
+    def process_one_item(self, item):
+        type = item.get('type')
+        brand = item.get('brand')
+        quantity = item.get('quantity')
+
+        if item.get('type') not in types:
+            self.is_valid = False
+            return
+
+        if item.get('brand') not in brands:
+            self.is_valid = False
+            return
+
+        try:
+            quantity = int(quantity)
+        except ValueError:
+            self.is_valid = False
+            return
+
+        key = (type, brand)
+        self.inventory[key] -= quantity
+        if self.inventory[key] < 0:
+            self.is_valid = False
+            return
+
+    def check_has_full_outfit(self):
+        self.has_full_outfit = False
+        for brand in brands:
+            is_full_for_this_brand_so_far = True
+            for type in types:
+                key = (type, brand)
+                if self.inventory[key] == starting_value:
+                    is_full_for_this_brand_so_far = False
+
+            if is_full_for_this_brand_so_far:
+                self.has_full_outfit = True
+
+    def get_result_string(self):
+        if not self.is_valid:
+            return 'Invalid input'
+
+        results = 'Remaining inventory:\n'
+        for type in types:
+            for brand in brands:
+                key = (type, brand)
+                results += f'{type} {brand} {self.inventory[key]}\n'
+
+        if self.has_full_outfit:
+            results += 'Contains full outfit for a brand\n'
+
+        return results
+    
+class Broken009: # explanation: says full outfit regardless of brand
         def __init__(self):
         self.inventory = {}
         for type in types:
@@ -642,7 +722,7 @@ class Broken008: # explanation: says full outfit regardless of brand
 
         return results
 
-class Broken009: # explanation: says full outfit if there are 2 slacks and 1 jacket
+class Broken010: # explanation: says full outfit if there are 2 slacks and 1 jacket
         def __init__(self):
         self.inventory = {}
         for type in types:
@@ -713,7 +793,7 @@ class Broken009: # explanation: says full outfit if there are 2 slacks and 1 jac
 
         return results
 
-class Broken010: # explanation: says full outfit even if one of the quantities is 0
+class Broken011: # explanation: says full outfit even if one of the quantities is 0
         def __init__(self):
         self.inventory = {}
         self.saw_key = {}
@@ -795,7 +875,7 @@ class Broken010: # explanation: says full outfit even if one of the quantities i
 
         return results
 
-class Broken011: # explanation: crashes if given 2 complete outfits (less realistic, but student should cover this in the tests)
+class Broken012: # explanation: crashes if given 2 complete outfits (less realistic, but student should cover this in the tests)
         def __init__(self):
         self.inventory = {}
         for type in types:
@@ -878,7 +958,7 @@ class Broken011: # explanation: crashes if given 2 complete outfits (less realis
 
         return results
 
-class Broken012: # explanation: gives wrong inventory-adds instead of subtracts
+class Broken013: # explanation: gives wrong inventory-adds instead of subtracts
         def __init__(self):
         self.inventory = {}
         for type in types:
@@ -958,7 +1038,7 @@ class Broken012: # explanation: gives wrong inventory-adds instead of subtracts
 
         return results
 
-class Broken013: # explanation: gives wrong inventory-misses one of the brands
+class Broken014: # explanation: gives wrong inventory-misses one of the brands
         def __init__(self):
         self.inventory = {}
         for type in types:
@@ -1041,7 +1121,7 @@ class Broken013: # explanation: gives wrong inventory-misses one of the brands
 
         return results
 
-class Broken014: # explanation: gives wrong inventory-previous and misspells Invalid input
+class Broken015: # explanation: gives wrong inventory-previous and misspells Invalid input
         def __init__(self):
         self.inventory = {}
         for type in types:
@@ -1124,8 +1204,23 @@ class Broken014: # explanation: gives wrong inventory-previous and misspells Inv
 
         return results
 
-
-
+classes = [
+    Broken001, # explanation, crashes on invalid type
+    Broken002, # explanation, crashes on invalid brand
+    Broken003, # explanation, crashes on empty string or None quantity
+    Broken004, # explanation, crashes on alphabetic quantity
+    Broken005, # explanation, still valid if exceeds inventory across multiple rows
+    Broken006, # explanation, off-by-one-error, says invalid too early
+    Broken007, # explanation, still valid if exceeds inventory
+    Broken008, # explanation, works -- need one that works, or student will pass everything if all tests fail
+    Broken009, # explanation, says full outfit regardless of brand
+    Broken010, # explanation, says full outfit if there are 2 slacks and 1 jacket
+    Broken011, # explanation, says full outfit even if one of the quantities is 0
+    Broken012, # explanation, crashes if given 2 complete outfits (less realistic, but student should cover this in the tests)
+    Broken013, # explanation, gives wrong inventory-adds instead of subtracts
+    Broken014, # explanation, gives wrong inventory-misses one of the brands
+    Broken015, # explanation, gives wrong inventory-previous and misspells Invalid input
+    ]
 
 def test_tests():
     
