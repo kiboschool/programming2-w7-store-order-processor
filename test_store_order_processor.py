@@ -8,7 +8,7 @@ class TestStoreOrderProcessor(unittest.TestCase):
     brands = []
     starting_value = 0
 
-    def test_valid_order(self):
+    def test_valid_two_brands_order(self):
         processor = StoreOrderProcessor()
         results = processor.process_list([
             {"type": "jacket", "brand": "fruche", "quantity": "2"},
@@ -27,7 +27,7 @@ pair_of_shoes kente 20''')
 
     # test another valid order
     # TODO Students to implement this test
-    def test_valid_order2(self):
+    def test_valid_three_brands_order(self):
         processor = StoreOrderProcessor()
         results = processor.process_list([
             {"type": "jacket", "brand": "fruche", "quantity": "4"},
@@ -111,7 +111,7 @@ pair_of_shoes kente 20''')
         assert processor.check_has_full_outfit('fruche') == True
 
     # TODO Students to implement this test
-    def test_full_outfit_fruche2(self):
+    def test_full_outfit_fruche_false(self):
         processor = StoreOrderProcessor()
         results = processor.process_list([
             {"type": "jacket", "brand": "fruche", "quantity": "2"},
