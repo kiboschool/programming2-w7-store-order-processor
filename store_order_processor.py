@@ -1,106 +1,114 @@
 import json
 
+"""The types and brands the store sells"""
+types = ['jacket', 'slacks', 'pair_of_shoes']
+brands = ['fruche', 'onalaja', 'kente']
 
-class InvalidOrderException(Exception):
-    def __init__(self, message):
-        self.message = message
-        super().__init__(self.message)
-
+"""The number of each item the store starts with"""
+starting_value = 20
 
 class StoreOrderProcessor:
-
-    # The types and brands the store sells
-    types = ['jacket', 'slacks', 'pair_of_shoes']
-    brands = ['fruche', 'onalaja', 'kente']
-
-    # The number of each item the store starts with
-    starting_value = 20
-
     def __init__(self):
         self.inventory = {}
-        # Initialize the inventory with the starting values
+        
+        # Initialize the inventory with the starting values.
         # for each type and brand combination in the store inventory, set the stock to be the starting value
-        for type in StoreOrderProcessor.types:
-            for brand in StoreOrderProcessor.brands:
-                key = (type, brand)
-                self.inventory[key] = StoreOrderProcessor.starting_value
+        for type in types:
+            for brand in brands:
+                self.set_current_inventory(type, brand, StoreOrderProcessor.starting_value)
 
-    """
-    This method processes a list of order items."""
+    """Returns the current inventory for a type and brand.
+    We use a dictionary to store the values."""
+    def get_current_inventory(self, type, brand):
+        key = type + '_' + brand
+        return self.inventory[key]
+        
+    """Sets the current inventory for a type and brand."""
+    def set_current_inventory(self, type, brand, value):
+        key = type + '_' + brand
+        self.inventory[key] = value
 
+    """This method processes a list of order items."""
     def process_list(self, list_of_items):
         for item in list_of_items:
             self.process_one_item(item)
 
-        return self.get_result_string()
+        return self.get_result_string(list_of_items)
 
-    """
-    This method processes a single item and updates the inventory accordingly."""
-
+    """This method processes a single item and updates the inventory accordingly."""
     def process_one_item(self, item):
         type = item.get('type')
         brand = item.get('brand')
         quantity = item.get('quantity')
 
-        if item.get('type') not in StoreOrderProcessor.types:
-            raise InvalidOrderException('Invalid item type')
+        if type not in types:
+            raise StoreOrderProcessorException('Invalid item type')
 
-        if item.get('brand') not in StoreOrderProcessor.brands:
-            raise InvalidOrderException('Invalid item brand')
+        if brand not in brands:
+            raise StoreOrderProcessorException('Invalid item brand')
 
         quantity = int(quantity)  # raises ValueError if not a number
+        
+        current_inventory = self.get_current_inventory(type, brand)
+        current_inventory -= quantity
+        
+        # it's ok if the inventory is 0, but if it is less than 0 the order was not valid.
+        if current_inventory < 0:
+            raise StoreOrderProcessorException('Out of stock')
+        
+        self.set_current_inventory(type, brand, current_inventory)
 
-        key = (type, brand)
-
-        if self.inventory[key] == 0:
-            raise InvalidOrderException('Out of stock')
-
-        if self.inventory[key] < quantity:
-
-            raise InvalidOrderException('Not enough in stock')
-
-        self.inventory[key] -= quantity
-
-        return
-
-    """
-    This method returns a string representation of the inventory. 
+    """This method returns a string representation of the inventory. 
     Types, brands, and quantities are separated by spaces. 
     Each item is on a new line."""
-
-    def get_result_string(self):
+    def get_result_string(self, list_of_items):
         result = 'Remaining inventory:\n'
 
-        for type in StoreOrderProcessor.types:
-            for brand in StoreOrderProcessor.brands:
-                key = (type, brand)
-                result += f'{type} {brand} {self.inventory[key]}\n'
+        for type in types:
+            for brand in brands:
+                current_inventory = self.get_current_inventory(type, brand)
+                result += f'{type} {brand} {current_inventory}\n'
+                
+        for brand in brands:
+            if self.check_has_full_outfit_for_brand:
+                result += ''
+                break
 
         return result
-
-    """
-    This method checks if the store has a full outfit for a given brand.
+    
+    """Searches a list and returns True if exists."""
+    def search_in_list(self, list_of_items, type, brand):
+        for item in list_of_items:
+            if item.get('type') == type and item.get('brand') == brand:
+                return True
+        
+        return False
+    
+    """This method checks if an order has a full outfit for a given brand.
     A full outfit means we have the full set of jacket, slacks, and shoes for a given brand."""
-
-    def check_has_full_outfit(self, brand):
-        for type in StoreOrderProcessor.types:
-            key = (type, brand)
-            # if any of the items is less than the starting value, then we don't have a full outfit
-            if self.inventory[key] < self.starting_value:
+    def check_has_full_outfit_for_brand(self, list_of_items, brand):
+        for type in types:
+            if not self.search_in_list(list_of_items, type, brand):
                 return False
 
         return True
 
-    """
-    This method processes a file containing a list of order items."""
+    """This method checks if an order has a full outfit in one brand."""
+    def check_has_full_outfit(self, list_of_items, brand):
+        for brand in brands:
+            
 
+        return True
+
+    """This method processes a file containing a list of order items."""
     def process(self, filename):
         with open(filename, 'r') as file:
-            try:
-                list_of_items = json.load(file)
-            except:
-                # self.is_valid = False
-                list_of_items = []
-
+            list_of_items = json.load(file)
+        
         results = self.process_list(list_of_items)
         print(results)
+
+class StoreOrderProcessorException(Exception):
+    pass
+
+
