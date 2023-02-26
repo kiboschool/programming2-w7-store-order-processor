@@ -1,21 +1,16 @@
+
 import json
-
-"""The types and brands the store sells"""
-types = ['jacket', 'slacks', 'pair_of_shoes']
-brands = ['fruche', 'onalaja', 'kente']
-
-"""The number of each item the store starts with"""
-starting_value = 20
+from constants import types, brands, starting_value, StoreOrderProcessorException
 
 class StoreOrderProcessor:
     def __init__(self):
         self.inventory = {}
         
         # Initialize the inventory with the starting values.
-        # for each type and brand combination in the store inventory, set the stock to be the starting value
+        # for each type and brand combination in the store inventory, set the stock to be the starting value.
         for type in types:
             for brand in brands:
-                self.set_current_inventory(type, brand, StoreOrderProcessor.starting_value)
+                self.set_current_inventory(type, brand, starting_value)
 
     """Returns the current inventory for a type and brand.
     We use a dictionary to store the values."""
@@ -47,7 +42,10 @@ class StoreOrderProcessor:
         if brand not in brands:
             raise StoreOrderProcessorException('Invalid item brand')
 
-        quantity = int(quantity)  # raises ValueError if not a number
+        try:
+            quantity = int(quantity)  # raises ValueError if not a number
+        except ValueError:
+            raise StoreOrderProcessorException('Invalid quantity')
         
         current_inventory = self.get_current_inventory(type, brand)
         current_inventory -= quantity
@@ -70,7 +68,7 @@ class StoreOrderProcessor:
                 result += f'{type} {brand} {current_inventory}\n'
                 
         for brand in brands:
-            if self.check_has_full_outfit_for_brand(list_of_items):
+            if self.check_has_full_outfit_for_brand(list_of_items, brand):
                 result += 'Contains full outfit for a brand\n'
                 break
 
@@ -90,7 +88,7 @@ class StoreOrderProcessor:
     """Searches a list and returns True if exists."""
     def search_in_list(self, list_of_items, type, brand):
         for item in list_of_items:
-            if item.get('type') == type and item.get('brand') == brand:
+            if item.get('type') == type and item.get('brand') == brand and int(item.get('quantity')) > 0:
                 return True
         
         return False
@@ -102,8 +100,5 @@ class StoreOrderProcessor:
         
         results = self.process_list(list_of_items)
         print(results)
-
-class StoreOrderProcessorException(Exception):
-    pass
 
 
