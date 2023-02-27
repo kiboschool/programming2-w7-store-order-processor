@@ -1,8 +1,8 @@
 
 import json
-from store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
+from ..store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
 
-class StoreOrderProcessor:
+class ProcessorBroken11: # explanation: adds the string twice if given 2 complete outfits
     def __init__(self):
         self.inventory = {}
         
@@ -38,7 +38,7 @@ class StoreOrderProcessor:
 
         if type not in types:
             raise StoreOrderProcessorException('Invalid item type')
-
+            
         if brand not in brands:
             raise StoreOrderProcessorException('Invalid item brand')
 
@@ -70,7 +70,6 @@ class StoreOrderProcessor:
         for brand in brands:
             if self.check_has_full_outfit_for_brand(list_of_items, brand):
                 result += 'Contains full outfit for a brand\n'
-                break
 
         return result
 

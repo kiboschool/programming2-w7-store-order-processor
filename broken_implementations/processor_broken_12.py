@@ -1,8 +1,8 @@
 
 import json
-from store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
+from ..store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
 
-class StoreOrderProcessor:
+class ProcessorBroken12: # explanation: gives wrong inventory-adds instead of subtracts
     def __init__(self):
         self.inventory = {}
         
@@ -38,7 +38,7 @@ class StoreOrderProcessor:
 
         if type not in types:
             raise StoreOrderProcessorException('Invalid item type')
-
+            
         if brand not in brands:
             raise StoreOrderProcessorException('Invalid item brand')
 
@@ -48,7 +48,7 @@ class StoreOrderProcessor:
             raise StoreOrderProcessorException('Invalid quantity')
         
         current_inventory = self.get_current_inventory(type, brand)
-        current_inventory -= quantity
+        current_inventory += quantity
         
         # it's ok if the inventory is 0, but if it is less than 0 the order was not valid.
         if current_inventory < 0:

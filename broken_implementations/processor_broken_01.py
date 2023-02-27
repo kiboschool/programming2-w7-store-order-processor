@@ -1,8 +1,8 @@
 
 import json
-from store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
+from ..store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
 
-class StoreOrderProcessor:
+class ProcessorBroken01: # explanation: crashes on invalid type
     def __init__(self):
         self.inventory = {}
         
@@ -35,9 +35,6 @@ class StoreOrderProcessor:
         type = item.get('type')
         brand = item.get('brand')
         quantity = item.get('quantity')
-
-        if type not in types:
-            raise StoreOrderProcessorException('Invalid item type')
 
         if brand not in brands:
             raise StoreOrderProcessorException('Invalid item brand')
