@@ -1,8 +1,8 @@
 
 import json
-from ..store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
+from store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
 
-class ProcessorBroken04: # explanation: does not catch invalid quantity
+class ProcessorWithBugs04: # explanation: does not catch invalid quantity
     def __init__(self):
         self.inventory = {}
         

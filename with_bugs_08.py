@@ -1,8 +1,8 @@
 
 import json
-from ..store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
+from store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
 
-class ProcessorBroken05: # explanation: mistakenly still valid if exceeds inventory across multiple rows
+class ProcessorWithBugs08: # explanation:  says full outfit regardless of brand
     def __init__(self):
         self.inventory = {}
         
@@ -46,10 +46,13 @@ class ProcessorBroken05: # explanation: mistakenly still valid if exceeds invent
             quantity = int(quantity)  # raises ValueError if not a number
         except ValueError:
             raise StoreOrderProcessorException('Invalid quantity')
-            
-        if quantity > starting_value:
+        
+        current_inventory = self.get_current_inventory(type, brand)
+        current_inventory -= quantity
+        
+        # it's ok if the inventory is 0, but if it is less than 0 the order was not valid.
+        if current_inventory < 0:
             raise StoreOrderProcessorException('Out of stock')
-
         
         self.set_current_inventory(type, brand, current_inventory)
 
@@ -85,7 +88,7 @@ class ProcessorBroken05: # explanation: mistakenly still valid if exceeds invent
     """Searches a list and returns True if exists."""
     def search_in_list(self, list_of_items, type, brand):
         for item in list_of_items:
-            if item.get('type') == type and item.get('brand') == brand and int(item.get('quantity')) > 0:
+            if item.get('type') == type and int(item.get('quantity')) > 0:
                 return True
         
         return False

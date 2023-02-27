@@ -1,8 +1,8 @@
 
 import json
-from ..store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
+from store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
 
-class ProcessorBroken13: # explanation: bad inventory string
+class ProcessorWithBugs11: # explanation: adds the string twice if given 2 complete outfits
     def __init__(self):
         self.inventory = {}
         
@@ -64,16 +64,12 @@ class ProcessorBroken13: # explanation: bad inventory string
 
         for type in types:
             for brand in brands:
-                if brand == 'fruche':
-                    continue
-                    
                 current_inventory = self.get_current_inventory(type, brand)
                 result += f'{type} {brand} {current_inventory}\n'
                 
         for brand in brands:
             if self.check_has_full_outfit_for_brand(list_of_items, brand):
                 result += 'Contains full outfit for a brand\n'
-                break
 
         return result
 

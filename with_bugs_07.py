@@ -1,8 +1,8 @@
 
 import json
-from ..store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
+from store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
 
-class ProcessorBroken11: # explanation: adds the string twice if given 2 complete outfits
+class ProcessorWithBugs07: # explanation: still valid if exceeds inventory
     def __init__(self):
         self.inventory = {}
         
@@ -50,9 +50,6 @@ class ProcessorBroken11: # explanation: adds the string twice if given 2 complet
         current_inventory = self.get_current_inventory(type, brand)
         current_inventory -= quantity
         
-        # it's ok if the inventory is 0, but if it is less than 0 the order was not valid.
-        if current_inventory < 0:
-            raise StoreOrderProcessorException('Out of stock')
         
         self.set_current_inventory(type, brand, current_inventory)
 
@@ -70,6 +67,7 @@ class ProcessorBroken11: # explanation: adds the string twice if given 2 complet
         for brand in brands:
             if self.check_has_full_outfit_for_brand(list_of_items, brand):
                 result += 'Contains full outfit for a brand\n'
+                break
 
         return result
 
