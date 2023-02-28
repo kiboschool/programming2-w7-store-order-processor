@@ -3,10 +3,10 @@
 
 In this project, you will write tests that check if a program is working correctly.
 
-There are two steps to the project. First, you will write an implementation of an "order processor". Then, you will write a full set of tests that confirm that the implementation is working correctly.
+There are two steps to the project. First, you will read the code for an "order processor". Then, you will write a full set of tests that confirm that the implementation is working correctly.
 
 
-## Part One: Implementation
+## Part One: Understanding an order processor
 
 Imagine that you are working on server code for an online store. The other parts of the program send the OrderProcessor a json file with an order, and the order processor interprets it and deducts from the inventory.
 
@@ -71,24 +71,40 @@ pair_of_shoes kente 20
 Contains full outfit for a brand
 ```
 
-You will edit `main.py` and implement the `process_list` method. The method should return a string as output.
+(If there are jackets from fruche, slacks from fruche, and pair\_of\_shoes from kente, this does not count as a full outfit because they were not from the same brand).
 
-For this project, the input JSON might have some bugs and sometimes does not send correct input. (Maybe sometimes a clerk is typing in an order manually, and they might type incorrectly). You should use `if` statements and `try/catch` statements so that the program does not crash if the input is not correct. If input is not valid, the method should ignore the order entirely and return the string "Invalid input".
 
-An order that uses more than the available inventory is also not valid.
+You don't need to write any code for part 1, just do the following to understand what the program is doing:
+
+* Run `main.py` and see the results.
+* Edit `main.py` so that points to the other examples like `example2.json`, and run it to see the results.
+* Read through `implementations/store_order_processor.py` and understand what it does.
+  * Find the part of code that raises an exception if the brand for an order is not one of the 3 supported brands.
+  * Understand what the `search_in_list` method does.
+
+In summary, here are the features that exist in `implementations/store_order_processor.py`:
+
+* At the end, the inventory is shown.
+* Ordering an item subtracts it from the inventory.
+* If there is a full outfit, show the "Contains full outfit" string.
+* An order that uses more than the available inventory is not valid.
+* If input is not valid, raise an `StoreOrderProcessorException`.
+
+
 
 ## Part Two: Writing Tests
 
-Please edit the file `test_store_order_processor.py` and add many unit tests.
+The next part of the assignment is to write tests that check that the `StoreOrderProcessor` implementation works correctly. For this project, unlike the others, we have given you the actual code and your task is to write the tests.
 
-The tests can call into either the `main process_list()` method, or a helper method you have added. The important part is to write lines like `assert has_full_outfit_line_in_results == True`.
+Please edit the file `test_store_order_processor.py`. See the `TODO` comments in the file. For each `TODO` comment, write a test. The existing tests in the file are good examples to go off of.
 
-You should check for all features,
-* including cases where the order would run out of inventory
-* including cases where there is a complete outfit for a brand
-* checking that invalid input will cause the output to be 'Invalid input'
+Once you have written the tests, try running them by running `test_store_order_processor.py`. All of the tests should pass.
 
-(This project is autograded, and so you will see the GitHub actions status turn green when your project is complete. We are using a script that goes through the test cases you have written and looks for completeness).
+The next step is fun. Notice all of the files like `implementations/with_bugs_01.py`. These are all different Store Order Processors that have bugs, realistic bugs that could happen. If the tests are working correctly, they will detect the bugs. In other words - if you pass a buggy implementation to your tests, you would expect one or more of the tests to fail! You can try this. Read the buggy implementations - a comment at the top of the file describes the problem.
+
+We have provided a file `test_tests.py` - a Python program that tests the tests. It loops through every `with_bugs` file, runs the tests on it, and confirms that the tests have a failure. If the tests did not have a failure, they are allowing a buggy program to pass, which isn't right.
+
+You can run this file, and if it runs with no errors, your project is complete. (This script is how the project is autograded. You will see the GitHub actions status turn green when your project is complete.).
 
 <img src="img/sh2.png" width="64" height="64" /> <img src="img/sh1.png" width="64" height="64" /> <img src="img/sla2.png" width="64" height="85" /> <img src="img/sla1.png" width="64" height="80" /> <img src="img/sui2.png" width="64" height="64" /> <img src="img/sui1.png" width="64" height="64" /> <img src="img/sh2.png" width="64" height="64" /> <img src="img/sh1.png" width="64" height="64" /> <img src="img/sla2.png" width="64" height="85" /> <img src="img/sla1.png" width="64" height="80" /> <img src="img/sui2.png" width="64" height="64" /> <img src="img/sui1.png" width="64" height="64" />
 
