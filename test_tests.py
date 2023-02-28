@@ -38,47 +38,39 @@ classes = [
     ProcessorWithBugs13,
     ProcessorWithBugs14,
     StoreOrderProcessor
-]
-
-
-def print_failed_method(method_name):
-    print("#" * 80)
-    print()
-    print(f'Failed test -->  {method_name}')
-    print()
-    print("#" * 80)
-
+    ]
 
 def run_all_tests(Cls):
     test_store_order_processor.get_instance = lambda: Cls()
     test_instance = test_store_order_processor.TestStoreOrderProcessor()
-
     for method_name in dir(test_instance):
         if method_name.startswith('test_'):
             try:
-                # print(f'-- Testing {method_name}')
                 getattr(test_instance, method_name)()
-            except Exception:
-                raise Exception(f'{method_name}')
-
+            except NotImplementedError:
+                raise
+            except:
+                raise AssertionError('test failed')
 
 def test_tests():
     for Cls in classes:
-        # all of these are broken except the reference implementation (StoreOrderProcessor )
+        # all of these are broken except the reference implementation (StoreOrderProcessor)
         expect_tests_to_pass = Cls == StoreOrderProcessor
         try:
             print(f'Running tests for {Cls.__name__}')
             run_all_tests(Cls)
             tests_passed = True
-        except (Exception, AssertionError, StoreOrderProcessorException) as e:
+        except (AssertionError, StoreOrderProcessorException):
             tests_passed = False
-            if not expect_tests_to_pass == tests_passed:
-                print_failed_method(e)
-
-        assert expect_tests_to_pass == tests_passed
-
+        
+        if expect_tests_to_pass and not tests_passed:
+            raise Exception(f'We expected the implementation {Cls.__name__} to pass tests, but it did not')
+            
+        if not expect_tests_to_pass and tests_passed:
+            raise Exception(f'We expected the buggy implementation {Cls.__name__} to fail tests, but it passed the tests')
+    
     print('Complete')
-
 
 if __name__ == '__main__':
     test_tests()
+    

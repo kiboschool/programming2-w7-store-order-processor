@@ -38,7 +38,7 @@ class ProcessorWithBugs05: # explanation: mistakenly still valid if exceeds inve
 
         if type not in types:
             raise StoreOrderProcessorException('Invalid item type')
-            
+
         if brand not in brands:
             raise StoreOrderProcessorException('Invalid item brand')
 
@@ -50,7 +50,8 @@ class ProcessorWithBugs05: # explanation: mistakenly still valid if exceeds inve
         if quantity > starting_value:
             raise StoreOrderProcessorException('Out of stock')
 
-        
+        current_inventory = self.get_current_inventory(type, brand)
+        current_inventory -= quantity
         self.set_current_inventory(type, brand, current_inventory)
 
     """This method returns a string representation of the inventory. 
