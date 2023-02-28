@@ -85,12 +85,11 @@ You don't need to write any code for part 1, just do the following to understand
 
 In summary, here are the features that exist in `implementations/store_order_processor.py`:
 
-* At the end, the inventory is shown.
 * Ordering an item subtracts it from the inventory.
 * If there is a full outfit, show the "Contains full outfit" string.
 * An order that uses more than the available inventory is not valid.
 * If input is not valid, raise an `StoreOrderProcessorException`.
-
+* The inventory is displayed after each order.
 
 
 ## Part Two: Writing Tests
