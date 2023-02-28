@@ -41,7 +41,7 @@ pair_of_shoes onalaja 20
 pair_of_shoes kente 20
 ```
 
-If there is at least one jacket, slacks, and pair\_of\_shoes from one brand in an order, we will call this a full outfit. When an order contains one or more full outfits for a brand, the program should print "Contains full outfit for a brand" at the end.
+If there is at least one jacket, slacks, and pair\_of\_shoes from the same brand in an order, we will call this a full outfit. When an order contains one or more full outfits for a brand, the program should print "Contains full outfit for a brand" at the end.
 
 So for the example input:
 
