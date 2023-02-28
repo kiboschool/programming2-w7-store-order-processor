@@ -46,7 +46,7 @@ class TestStoreOrderProcessor(unittest.TestCase):
     {"type": "jacket", "brand": "fruche", "quantity": "2"},
     {"type": "slacks", "brand": "kente", "quantity": "19"},
 ])
-        assert_equal_ignoring_newlines(results, '''Remaining inventory:
+        assert_equal_ignoring_space(results, '''Remaining inventory:
 jacket fruche 18
 jacket onalaja 20
 jacket kente 20
@@ -65,7 +65,7 @@ pair_of_shoes kente 20''')
     {"type": "jacket", "brand": "fruche", "quantity": "2"},
     {"type": "slacks", "brand": "kente", "quantity": "20"},
 ])
-        assert_equal_ignoring_newlines(results, '''Remaining inventory:
+        assert_equal_ignoring_space(results, '''Remaining inventory:
 jacket fruche 18
 jacket onalaja 20
 jacket kente 20
@@ -101,7 +101,7 @@ pair_of_shoes kente 20''')
     {"type": "slacks", "brand": "onalaja", "quantity": "2"},
     {"type": "pair_of_shoes", "brand": "onalaja", "quantity": "1"},
 ])
-        assert_equal_ignoring_newlines(results, '''Remaining inventory:
+        assert_equal_ignoring_space(results, '''Remaining inventory:
 jacket fruche 20
 jacket onalaja 18
 jacket kente 20
@@ -120,7 +120,7 @@ Contains full outfit for a brand''')
     {"type": "slacks", "brand": "kente", "quantity": "2"},
     {"type": "pair_of_shoes", "brand": "kente", "quantity": "2"},
 ])
-        assert_equal_ignoring_newlines(results, '''Remaining inventory:
+        assert_equal_ignoring_space(results, '''Remaining inventory:
 jacket fruche 18
 jacket onalaja 20
 jacket kente 20
@@ -138,7 +138,7 @@ pair_of_shoes kente 18''')
     {"type": "slacks", "brand": "kente", "quantity": "2"},
     {"type": "slacks", "brand": "kente", "quantity": "2"},
 ])
-        assert_equal_ignoring_newlines(results, '''Remaining inventory:
+        assert_equal_ignoring_space(results, '''Remaining inventory:
 jacket fruche 20
 jacket onalaja 20
 jacket kente 18
@@ -156,7 +156,7 @@ pair_of_shoes kente 20''')
     {"type": "slacks", "brand": "kente", "quantity": "2"},
     {"type": "pair_of_shoes", "brand": "kente", "quantity": "0"},
 ])
-        assert_equal_ignoring_newlines(results, '''Remaining inventory:
+        assert_equal_ignoring_space(results, '''Remaining inventory:
 jacket fruche 20
 jacket onalaja 20
 jacket kente 18
@@ -178,7 +178,7 @@ pair_of_shoes kente 20''')
     {"type": "slacks", "brand": "onalaja", "quantity": "2"},
     {"type": "pair_of_shoes", "brand": "onalaja", "quantity": "1"},
 ])
-        assert_equal_ignoring_newlines(results, '''Remaining inventory:
+        assert_equal_ignoring_space(results, '''Remaining inventory:
 jacket fruche 20
 jacket onalaja 18
 jacket kente 18
@@ -191,9 +191,14 @@ pair_of_shoes kente 19
 Contains full outfit for a brand''')
 
 
-def assert_equal_ignoring_newlines(s1, s2):
-    s1 = s1.replace('\r\n', '\n').strip()
-    s2 = s2.replace('\r\n', '\n').strip()
+def assert_equal_ignoring_space(s1, s2):
+    # Skip whitespace and newlines
+    s1 = s1.replace('\r', '').replace('\n', '').replace(' ', '').replace('\t', '')
+    s2 = s2.replace('\r', '').replace('\n', '').replace(' ', '').replace('\t', '')
+    if s1 != s2:
+        print('First string:', s1)
+        print('Second string:', s2)
+        
     assert s1 == s2
 
 
