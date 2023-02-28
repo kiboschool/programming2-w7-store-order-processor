@@ -87,25 +87,29 @@ class TestStoreOrderProcessor(unittest.TestCase):
 
     def test_not_valid_if_exceeds_inventory(self):
         # TODO: please write a test here
-        # should raise if there are more than the inventory.
+        # should raise StoreOrderProcessorException if there are more than the inventory.
+        # your code should test the scenario where the quantity is greater than the inventory
         raise NotImplementedError
 
     """Test that the StoreOrderProcessor raises a StoreOrderProcessorException exception when given an invalid brand."""
 
     def test_should_handle_invalid_brand(self):
         # TODO: please write a test here
+        # Write your code to simulate the scenario where the brand is invalid
         raise NotImplementedError
 
     """Test that the StoreOrderProcessor raises a StoreOrderProcessorException exception when given an empty quantity."""
 
     def test_should_handle_empty_string_quantity(self):
         # TODO: please write a test here
+        # Write your code to simulate the scenario where the quantity is an empty string
         raise NotImplementedError
 
     """Test that the StoreOrderProcessor raises a StoreOrderProcessorException exception when g given a string quantity. """
 
     def test_should_handle_alphabetic_quantity(self):
         # TODO: please write a test here
+        # Write your code to simulate the scenario where the quantity is a string
         raise NotImplementedError
 
     """Test that the StoreOrderProcessor correctly processes a list of items leaving zero remaining."""
