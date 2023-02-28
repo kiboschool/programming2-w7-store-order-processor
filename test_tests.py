@@ -23,32 +23,44 @@ import test_store_order_processor
 
 
 classes = [
-    ProcessorWithBugs01, 
-    ProcessorWithBugs02, 
-    ProcessorWithBugs03, 
-    ProcessorWithBugs04, 
-    ProcessorWithBugs05, 
-    ProcessorWithBugs06, 
-    ProcessorWithBugs07, 
-    ProcessorWithBugs08, 
-    ProcessorWithBugs09, 
-    ProcessorWithBugs10, 
-    ProcessorWithBugs11, 
-    ProcessorWithBugs12, 
-    ProcessorWithBugs13, 
-    ProcessorWithBugs14, 
+    ProcessorWithBugs01,
+    ProcessorWithBugs02,
+    ProcessorWithBugs03,
+    ProcessorWithBugs04,
+    ProcessorWithBugs05,
+    ProcessorWithBugs06,
+    ProcessorWithBugs07,
+    ProcessorWithBugs08,
+    ProcessorWithBugs09,
+    ProcessorWithBugs10,
+    ProcessorWithBugs11,
+    ProcessorWithBugs12,
+    ProcessorWithBugs13,
+    ProcessorWithBugs14,
     StoreOrderProcessor
-    ]
+]
+
+
+def print_failed_method(method_name):
+    print("#" * 80)
+    print()
+    print(f'Failed test -->  {method_name}')
+    print()
+    print("#" * 80)
+
 
 def run_all_tests(Cls):
     test_store_order_processor.get_instance = lambda: Cls()
     test_instance = test_store_order_processor.TestStoreOrderProcessor()
+
     for method_name in dir(test_instance):
         if method_name.startswith('test_'):
             try:
+                # print(f'-- Testing {method_name}')
                 getattr(test_instance, method_name)()
-            except:
-                raise AssertionError('test failed')
+            except Exception:
+                raise Exception(f'{method_name}')
+
 
 def test_tests():
     for Cls in classes:
@@ -58,12 +70,15 @@ def test_tests():
             print(f'Running tests for {Cls.__name__}')
             run_all_tests(Cls)
             tests_passed = True
-        except (AssertionError, StoreOrderProcessorException):
+        except (Exception, AssertionError, StoreOrderProcessorException) as e:
             tests_passed = False
-        
+            if not expect_tests_to_pass == tests_passed:
+                print_failed_method(e)
+
         assert expect_tests_to_pass == tests_passed
+
     print('Complete')
+
 
 if __name__ == '__main__':
     test_tests()
-    
