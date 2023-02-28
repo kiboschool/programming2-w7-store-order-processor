@@ -23,22 +23,31 @@ import test_store_order_processor
 
 
 classes = [
-    ProcessorWithBugs01, 
-    ProcessorWithBugs02, 
-    ProcessorWithBugs03, 
-    ProcessorWithBugs04, 
-    ProcessorWithBugs05, 
-    ProcessorWithBugs06, 
-    ProcessorWithBugs07, 
-    ProcessorWithBugs08, 
-    ProcessorWithBugs09, 
-    ProcessorWithBugs10, 
-    ProcessorWithBugs11, 
-    ProcessorWithBugs12, 
-    ProcessorWithBugs13, 
-    ProcessorWithBugs14, 
+    ProcessorWithBugs01,
+    ProcessorWithBugs02,
+    ProcessorWithBugs03,
+    ProcessorWithBugs04,
+    ProcessorWithBugs05,
+    ProcessorWithBugs06,
+    ProcessorWithBugs07,
+    ProcessorWithBugs08,
+    ProcessorWithBugs09,
+    ProcessorWithBugs10,
+    ProcessorWithBugs11,
+    ProcessorWithBugs12,
+    ProcessorWithBugs13,
+    ProcessorWithBugs14,
     StoreOrderProcessor
-    ]
+]
+
+
+def print_failed_method(method_name):
+    print("#" * 80)
+    print()
+    print(f'Failed test -->  {method_name}')
+    print()
+    print("#" * 80)
+
 
 def run_all_tests(Cls):
     test_store_order_processor.get_instance = lambda: Cls()
@@ -48,7 +57,9 @@ def run_all_tests(Cls):
             try:
                 getattr(test_instance, method_name)()
             except:
+                print_failed_method(method_name)
                 raise AssertionError('test failed')
+
 
 def test_tests():
     for Cls in classes:
@@ -60,10 +71,10 @@ def test_tests():
             tests_passed = True
         except (AssertionError, StoreOrderProcessorException):
             tests_passed = False
-        
+
         assert expect_tests_to_pass == tests_passed
     print('Complete')
 
+
 if __name__ == '__main__':
     test_tests()
-    
