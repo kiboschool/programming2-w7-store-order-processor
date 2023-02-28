@@ -83,23 +83,30 @@ class TestStoreOrderProcessor(unittest.TestCase):
 
     ####### Now is your turn to write some tests! Use the above examples as a guide ########
 
+    """Test that the StoreOrderProcessor raises a StoreOrderProcessorException exception when given an invalid type."""
+
+    def test_not_valid_if_exceeds_inventory(self):
+        # TODO: please write a test here
+        # should raise if there are more than the inventory.
+        raise NotImplementedError
+
     """Test that the StoreOrderProcessor raises a StoreOrderProcessorException exception when given an invalid brand."""
 
     def test_should_handle_invalid_brand(self):
         # TODO: please write a test here
-        pass
+        raise NotImplementedError
 
     """Test that the StoreOrderProcessor raises a StoreOrderProcessorException exception when given an empty quantity."""
 
     def test_should_handle_empty_string_quantity(self):
         # TODO: please write a test here
-        pass
+        raise NotImplementedError
 
     """Test that the StoreOrderProcessor raises a StoreOrderProcessorException exception when g given a string quantity. """
 
     def test_should_handle_alphabetic_quantity(self):
         # TODO: please write a test here
-        pass
+        raise NotImplementedError
 
     """Test that the StoreOrderProcessor correctly processes a list of items leaving zero remaining."""
 
@@ -107,41 +114,35 @@ class TestStoreOrderProcessor(unittest.TestCase):
         # An inventory of 0 is valid.
         # TODO: please write a test here.
         # This covers a common 'off-by-one' error where a bug might cause it to think an inventory of 0 is invalid
-        pass
-
-    """Test that the StoreOrderProcessor raises a StoreOrderProcessorException exception when given an invalid type."""
-
-    def test_not_valid_if_exceeds_inventory(self):
-        # TODO: please write a test here
-        # should raise if there are more than the inventory.
-        pass
+        raise NotImplementedError
 
     """Test that the StoreOrderProcessor don't print the full outfit message if the items are not all the same brand."""
 
     def test_should_not_say_full_outfit_regardless_of_brand(self):
         # TODO: please write a test here
         # a full outfit must be only all for the same brand - if one of the items is a different brand, it doesn't count.
-        pass
+        raise NotImplementedError
 
     """Test that the StoreOrderProcessor don't print the full outfit message if there isn't an item of each type."""
 
     def test_should_not_say_full_outfit_if_there_are_2_slacks_and_1_jacket(self):
         # TODO: please write a test here
         # it's not a full outfit if there is no pair_of_shoes
-        pass
+        raise NotImplementedError
 
     """Test that the StoreOrderProcessor don't print the full outfit message if there isn't an item of each type."""
 
     def test_should_not_say_full_outfit_even_if_one_of_the_quantities_is_0(self):
         # TODO: please write a test here
         # edge case where quantity is 0. That should not create a full outfit if one of the items has quantity=0!
-        pass
+        raise NotImplementedError
 
-    """Test that the StoreOrderProcessor raises a StoreOrderProcessorException exception when given an invalid type."""
+    """Test that the StoreOrderProcessor prints the full outfit message one time 
+    if given a list of items contains more than full outfit."""
 
     def test_should_still_work_if_given_2_complete_outfits(self):
         # TODO: write a test here
-        pass
+        raise NotImplementedError
 
 
 def assert_equal_ignoring_newlines(s1, s2):
