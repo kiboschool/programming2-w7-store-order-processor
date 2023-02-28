@@ -23,20 +23,20 @@ import test_store_order_processor
 
 
 classes = [
-    ProcessorWithBugs01, 
-    ProcessorWithBugs02, 
-    ProcessorWithBugs03, 
-    ProcessorWithBugs04, 
-    ProcessorWithBugs05, 
-    ProcessorWithBugs06, 
-    ProcessorWithBugs07, 
-    ProcessorWithBugs08, 
-    ProcessorWithBugs09, 
-    ProcessorWithBugs10, 
-    ProcessorWithBugs11, 
-    ProcessorWithBugs12, 
-    ProcessorWithBugs13, 
-    ProcessorWithBugs14, 
+    ProcessorWithBugs01,
+    ProcessorWithBugs02,
+    ProcessorWithBugs03,
+    ProcessorWithBugs04,
+    ProcessorWithBugs05,
+    ProcessorWithBugs06,
+    ProcessorWithBugs07,
+    ProcessorWithBugs08,
+    ProcessorWithBugs09,
+    ProcessorWithBugs10,
+    ProcessorWithBugs11,
+    ProcessorWithBugs12,
+    ProcessorWithBugs13,
+    ProcessorWithBugs14,
     StoreOrderProcessor
     ]
 
@@ -47,12 +47,14 @@ def run_all_tests(Cls):
         if method_name.startswith('test_'):
             try:
                 getattr(test_instance, method_name)()
+            except NotImplementedError:
+                raise
             except:
                 raise AssertionError('test failed')
 
 def test_tests():
     for Cls in classes:
-        # all of these are broken except the reference implementation (StoreOrderProcessor )
+        # all of these are broken except the reference implementation (StoreOrderProcessor)
         expect_tests_to_pass = Cls == StoreOrderProcessor
         try:
             print(f'Running tests for {Cls.__name__}')
@@ -61,7 +63,12 @@ def test_tests():
         except (AssertionError, StoreOrderProcessorException):
             tests_passed = False
         
-        assert expect_tests_to_pass == tests_passed
+        if expect_tests_to_pass and not tests_passed:
+            raise Exception(f'We expected the implementation {Cls.__name__} to pass tests, but it did not')
+            
+        if not expect_tests_to_pass and tests_passed:
+            raise Exception(f'We expected the buggy implementation {Cls.__name__} to fail tests, but it passed the tests')
+    
     print('Complete')
 
 if __name__ == '__main__':
