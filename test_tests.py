@@ -1,5 +1,5 @@
 
-
+from store_order_processor import StoreOrderProcessor
 from with_bugs_01 import ProcessorWithBugs01
 from with_bugs_02 import ProcessorWithBugs02
 from with_bugs_03 import ProcessorWithBugs03
@@ -14,7 +14,9 @@ from with_bugs_11 import ProcessorWithBugs11
 from with_bugs_12 import ProcessorWithBugs12
 from with_bugs_13 import ProcessorWithBugs13
 from with_bugs_14 import ProcessorWithBugs14
+from store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
 
+import test_store_order_processor
 
 # provide a bunch of broken implementations:
 # the tests running with these implementations should fail.
@@ -35,10 +37,11 @@ classes = [
     ProcessorWithBugs12, 
     ProcessorWithBugs13, 
     ProcessorWithBugs14, 
+    StoreOrderProcessor
     ]
 
 def run_all_tests(Cls):
-    test_store_order_processor.main.StoreOrderProcessor = Cls
+    test_store_order_processor.get_instance = lambda: Cls()
     test_instance = test_store_order_processor.TestStoreOrderProcessor()
     for method_name in dir(test_instance):
         if method_name.startswith('test_'):
@@ -49,15 +52,17 @@ def run_all_tests(Cls):
 
 def test_tests():
     for Cls in classes:
-        # all of these are broken in some way, we expect it to fail
-        expect_tests_to_pass = False
+        # all of these are broken except the reference implementation (StoreOrderProcessor )
+        expect_tests_to_pass = Cls == StoreOrderProcessor
         try:
+            print(f'Running tests for {Cls.__name__}')
             run_all_tests(Cls)
             tests_passed = True
-        except:
+        except (AssertionError, StoreOrderProcessorException):
             tests_passed = False
         
         assert expect_tests_to_pass == tests_passed
+    print('Complete')
 
 if __name__ == '__main__':
     test_tests()

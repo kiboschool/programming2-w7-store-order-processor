@@ -1,4 +1,4 @@
 [
   { "type": "jacket", "brand": "fruche", "quantity": "2" },
-  { "type": "shirt", "brand": "kente", "quantity": "1" }
+  { "type": "shrt(typo)", "brand": "kente", "quantity": "1" }
 ]

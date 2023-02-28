@@ -2,11 +2,15 @@
 import unittest
 from store_order_processor import StoreOrderProcessor, StoreOrderProcessorException
 
+'''Create an instance of the class currently being tested'''
+def get_instance():
+    return StoreOrderProcessor()
 
+'''Check that the orderprocessor is working as intended'''
 class TestStoreOrderProcessor(unittest.TestCase):
     def test_should_not_crash_on_invalid_type(self):
         with self.assertRaises(StoreOrderProcessorException):
-            processor = StoreOrderProcessor()
+            processor = get_instance()
             results = processor.process_list([
         {"type": "jacket", "brand": "fruche", "quantity": "2"},
         {"type": "slcks(typo)", "brand": "kente", "quantity": "1"}
@@ -14,7 +18,7 @@ class TestStoreOrderProcessor(unittest.TestCase):
         
     def test_should_not_crash_on_invalid_brand(self):
         with self.assertRaises(StoreOrderProcessorException):
-            processor = StoreOrderProcessor()
+            processor = get_instance()
             results = processor.process_list([
         {"type": "jacket", "brand": "fruche", "quantity": "2"},
         {"type": "slacks", "brand": "kent(typo)", "quantity": "1"}
@@ -22,7 +26,7 @@ class TestStoreOrderProcessor(unittest.TestCase):
         
     def test_should_not_crash_on_empty_string_quantity(self):
         with self.assertRaises(StoreOrderProcessorException):
-            processor = StoreOrderProcessor()
+            processor = get_instance()
             results = processor.process_list([
         {"type": "jacket", "brand": "fruche", "quantity": "2"},
         {"type": "slacks", "brand": "kente", "quantity": ""}
@@ -30,7 +34,7 @@ class TestStoreOrderProcessor(unittest.TestCase):
         
     def test_should_not_crash_on_alphabetic_quantity(self):
         with self.assertRaises(StoreOrderProcessorException):
-            processor = StoreOrderProcessor()
+            processor = get_instance()
             results = processor.process_list([
         {"type": "jacket", "brand": "fruche", "quantity": "2"},
         {"type": "slacks", "brand": "kente", "quantity": "abc"}
@@ -38,7 +42,7 @@ class TestStoreOrderProcessor(unittest.TestCase):
         
     def test_still_valid_if_exceeds_inventory_across_multiple_rows(self):
         with self.assertRaises(StoreOrderProcessorException):
-            processor = StoreOrderProcessor()
+            processor = get_instance()
             results = processor.process_list([
         {"type": "jacket", "brand": "fruche", "quantity": "2"},
         {"type": "slacks", "brand": "kente", "quantity": "18"},
@@ -46,7 +50,7 @@ class TestStoreOrderProcessor(unittest.TestCase):
     ])
         
     def test_off_by_one_error(self):
-        processor = StoreOrderProcessor()
+        processor = get_instance()
         results = processor.process_list([
     {"type": "jacket", "brand": "fruche", "quantity": "2"},
     {"type": "slacks", "brand": "kente", "quantity": "20"},
@@ -64,14 +68,14 @@ pair_of_shoes kente 20''')
     
     def test_still_valid_if_exceeds_inventory(self):
         with self.assertRaises(StoreOrderProcessorException):
-            processor = StoreOrderProcessor()
+            processor = get_instance()
             results = processor.process_list([
         {"type": "jacket", "brand": "fruche", "quantity": "2"},
         {"type": "slacks", "brand": "kente", "quantity": "22"},
     ])
         
     def test_says_full_outfit_regardless_of_brand(self):
-        processor = StoreOrderProcessor()
+        processor = get_instance()
         results = processor.process_list([
     {"type": "jacket", "brand": "fruche", "quantity": "2"},
     {"type": "slacks", "brand": "kente", "quantity": "2"},
@@ -89,7 +93,7 @@ pair_of_shoes onalaja 20
 pair_of_shoes kente 18''')
 
     def test_says_full_outfit_if_there_are_2_slacks_and_1_jacket(self):
-        processor = StoreOrderProcessor()
+        processor = get_instance()
         results = processor.process_list([
     {"type": "jacket", "brand": "kente", "quantity": "2"},
     {"type": "slacks", "brand": "kente", "quantity": "2"},
@@ -107,7 +111,7 @@ pair_of_shoes onalaja 20
 pair_of_shoes kente 20''')
 
     def test_says_full_outfit_even_if_one_of_the_quantities_is_0(self):
-        processor = StoreOrderProcessor()
+        processor = get_instance()
         results = processor.process_list([
     {"type": "jacket", "brand": "kente", "quantity": "2"},
     {"type": "slacks", "brand": "kente", "quantity": "2"},
@@ -125,7 +129,7 @@ pair_of_shoes onalaja 20
 pair_of_shoes kente 20''')
 
     def test_has_a_complete_outfit(self):
-        processor = StoreOrderProcessor()
+        processor = get_instance()
         results = processor.process_list([
     {"type": "jacket", "brand": "onalaja", "quantity": "2"},
     {"type": "slacks", "brand": "onalaja", "quantity": "2"},
@@ -144,7 +148,7 @@ pair_of_shoes kente 20
 Contains full outfit for a brand''')
 
     def test_should_not_crash_if_given_2_complete_outfits(self):
-        processor = StoreOrderProcessor()
+        processor = get_instance()
         results = processor.process_list([
     {"type": "jacket", "brand": "kente", "quantity": "2"},
     {"type": "slacks", "brand": "kente", "quantity": "2"},
