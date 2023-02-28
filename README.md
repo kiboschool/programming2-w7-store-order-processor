@@ -77,7 +77,8 @@ Contains full outfit for a brand
 You don't need to write any code for part 1, just do the following to understand what the program is doing:
 
 * Run `main.py` and see the results.
-* Edit `main.py` so that points to the other examples like `example2.json`, and run it to see the results.
+* The sample orders are stored in json files named `example1.json`,  `example2.json`, and  `example3.json`.
+* Edit `main.py` so that it points to the other examples like `example2.json`, and run it to see the results.
 * Read through `implementations/store_order_processor.py` and understand what it does.
   * Find the part of code that raises an exception if the brand for an order is not one of the 3 supported brands.
   * Understand what the `search_in_list` method does.
