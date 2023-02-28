@@ -1,6 +1,6 @@
 
 import json
-from store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
+from .store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
 
 class ProcessorWithBugs02: # explanation: crashes on invalid brand
     def __init__(self):

@@ -3,7 +3,7 @@
 
 In this project, you will write tests that check if a program is working correctly.
 
-There are two steps to the project. First, you will read the code that implements an "order processor". Then, you will write a full set of tests that confirm that the implementation is working correctly.
+There are two steps to the project. First, you will read the code for an "order processor". Then, you will write a full set of tests that confirm that the implementation is working correctly.
 
 
 ## Part One: Understanding an order processor
@@ -78,11 +78,11 @@ You don't need to write any code for part 1, just do the following to understand
 
 * Run `main.py` and see the results.
 * Edit `main.py` so that points to the other examples like `example2.json`, and run it to see the results.
-* Read through `store_order_processor.py` and understand what it does.
+* Read through `implementations/store_order_processor.py` and understand what it does.
   * Find the part of code that raises an exception if the brand for an order is not one of the 3 supported brands.
   * Understand what the `search_in_list` method does.
 
-In summary, here are the features that exist in `store_order_processor.py`:
+In summary, here are the features that exist in `implementations/store_order_processor.py`:
 
 * At the end, the inventory is shown.
 * Ordering an item subtracts it from the inventory.
@@ -100,7 +100,7 @@ Please edit the file `test_store_order_processor.py`. See the `TODO` comments in
 
 Once you have written the tests, try running them by running `test_store_order_processor.py`. All of the tests should pass.
 
-The next step is fun. Notice all of the files like `with_bugs_01.py`. These are all different Store Order Processors that have bugs, realistic bugs that could happen. If the tests are working correctly, they will detect the bugs. In other words - if you pass a buggy implementation to your tests, you would expect one or more of the tests to fail! You can try this.
+The next step is fun. Notice all of the files like `implementations/with_bugs_01.py`. These are all different Store Order Processors that have bugs, realistic bugs that could happen. If the tests are working correctly, they will detect the bugs. In other words - if you pass a buggy implementation to your tests, you would expect one or more of the tests to fail! You can try this. Read the buggy implementations - a comment at the top of the file describes the problem.
 
 We have provided a file `test_tests.py` - a Python program that tests the tests. It loops through every `with_bugs` file, runs the tests on it, and confirms that the tests have a failure. If the tests did not have a failure, they are allowing a buggy program to pass, which isn't right.
 

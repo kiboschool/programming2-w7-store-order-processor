@@ -1,8 +1,8 @@
 
 import json
-from store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
+from .store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
 
-class ProcessorWithBugs06: # explanation: off-by-one-error, says invalid too early
+class ProcessorWithBugs13: # explanation: bad inventory string
     def __init__(self):
         self.inventory = {}
         
@@ -50,8 +50,8 @@ class ProcessorWithBugs06: # explanation: off-by-one-error, says invalid too ear
         current_inventory = self.get_current_inventory(type, brand)
         current_inventory -= quantity
         
-        
-        if current_inventory <= 0:
+        # it's ok if the inventory is 0, but if it is less than 0 the order was not valid.
+        if current_inventory < 0:
             raise StoreOrderProcessorException('Out of stock')
         
         self.set_current_inventory(type, brand, current_inventory)
@@ -64,6 +64,9 @@ class ProcessorWithBugs06: # explanation: off-by-one-error, says invalid too ear
 
         for type in types:
             for brand in brands:
+                if brand == 'fruche':
+                    continue
+                    
                 current_inventory = self.get_current_inventory(type, brand)
                 result += f'{type} {brand} {current_inventory}\n'
                 

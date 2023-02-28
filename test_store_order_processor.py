@@ -1,6 +1,6 @@
 
 import unittest
-from store_order_processor import StoreOrderProcessor, StoreOrderProcessorException
+from implementations.store_order_processor import StoreOrderProcessor, StoreOrderProcessorException
 
 '''Create an instance of the class currently being tested'''
 def get_instance():

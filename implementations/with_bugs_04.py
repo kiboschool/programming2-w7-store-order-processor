@@ -1,8 +1,8 @@
 
 import json
-from store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
+from .store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
 
-class ProcessorWithBugs11: # explanation: adds the string twice if given 2 complete outfits
+class ProcessorWithBugs04: # explanation: does not catch invalid quantity
     def __init__(self):
         self.inventory = {}
         
@@ -42,10 +42,7 @@ class ProcessorWithBugs11: # explanation: adds the string twice if given 2 compl
         if brand not in brands:
             raise StoreOrderProcessorException('Invalid item brand')
 
-        try:
-            quantity = int(quantity)  # raises ValueError if not a number
-        except ValueError:
-            raise StoreOrderProcessorException('Invalid quantity')
+        quantity = int(quantity)
         
         current_inventory = self.get_current_inventory(type, brand)
         current_inventory -= quantity
@@ -70,6 +67,7 @@ class ProcessorWithBugs11: # explanation: adds the string twice if given 2 compl
         for brand in brands:
             if self.check_has_full_outfit_for_brand(list_of_items, brand):
                 result += 'Contains full outfit for a brand\n'
+                break
 
         return result
 

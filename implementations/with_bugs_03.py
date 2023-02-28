@@ -1,8 +1,8 @@
 
 import json
-from store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
+from .store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
 
-class ProcessorWithBugs09: # explanation: always says full outfit
+class ProcessorWithBugs03: #  explanation: catches empty quantity but not alphanumeric quantity
     def __init__(self):
         self.inventory = {}
         
@@ -42,10 +42,10 @@ class ProcessorWithBugs09: # explanation: always says full outfit
         if brand not in brands:
             raise StoreOrderProcessorException('Invalid item brand')
 
-        try:
-            quantity = int(quantity)  # raises ValueError if not a number
-        except ValueError:
+        if not quantity:
             raise StoreOrderProcessorException('Invalid quantity')
+        
+        quantity = int(quantity)  # raises ValueError if not a number
         
         current_inventory = self.get_current_inventory(type, brand)
         current_inventory -= quantity
@@ -78,7 +78,20 @@ class ProcessorWithBugs09: # explanation: always says full outfit
     """This method checks if an order has a full outfit for a given brand.
     A full outfit means we have the full set of jacket, slacks, and shoes for a given brand."""
     def check_has_full_outfit_for_brand(self, list_of_items, brand):
+        for type in types:
+            if not self.search_in_list(list_of_items, type, brand):
+                return False
+
         return True
+        
+    
+    """Searches a list and returns True if exists."""
+    def search_in_list(self, list_of_items, type, brand):
+        for item in list_of_items:
+            if item.get('type') == type and item.get('brand') == brand and int(item.get('quantity')) > 0:
+                return True
+        
+        return False
 
     """This method processes a file containing a list of order items."""
     def process(self, filename):

@@ -1,8 +1,8 @@
 
 import json
-from store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
+from .store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
 
-class ProcessorWithBugs01: # explanation: crashes on invalid type
+class ProcessorWithBugs10: # explanation: says full outfit even if one of the quantities is 0
     def __init__(self):
         self.inventory = {}
         
@@ -36,6 +36,9 @@ class ProcessorWithBugs01: # explanation: crashes on invalid type
         brand = item.get('brand')
         quantity = item.get('quantity')
 
+        if type not in types:
+            raise StoreOrderProcessorException('Invalid item type')
+            
         if brand not in brands:
             raise StoreOrderProcessorException('Invalid item brand')
 
@@ -85,7 +88,7 @@ class ProcessorWithBugs01: # explanation: crashes on invalid type
     """Searches a list and returns True if exists."""
     def search_in_list(self, list_of_items, type, brand):
         for item in list_of_items:
-            if item.get('type') == type and item.get('brand') == brand and int(item.get('quantity')) > 0:
+            if item.get('type') == type and item.get('brand') == brand:
                 return True
         
         return False

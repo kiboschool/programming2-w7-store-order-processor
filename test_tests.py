@@ -1,21 +1,21 @@
 
-from store_order_processor import StoreOrderProcessor
-from with_bugs_01 import ProcessorWithBugs01
-from with_bugs_02 import ProcessorWithBugs02
-from with_bugs_03 import ProcessorWithBugs03
-from with_bugs_04 import ProcessorWithBugs04
-from with_bugs_05 import ProcessorWithBugs05
-from with_bugs_06 import ProcessorWithBugs06
-from with_bugs_07 import ProcessorWithBugs07
-from with_bugs_08 import ProcessorWithBugs08
-from with_bugs_09 import ProcessorWithBugs09
-from with_bugs_10 import ProcessorWithBugs10
-from with_bugs_11 import ProcessorWithBugs11
-from with_bugs_12 import ProcessorWithBugs12
-from with_bugs_13 import ProcessorWithBugs13
-from with_bugs_14 import ProcessorWithBugs14
-from store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
+from implementations.store_order_processor import StoreOrderProcessor
+from implementations.with_bugs_01 import ProcessorWithBugs01
+from implementations.with_bugs_02 import ProcessorWithBugs02
+from implementations.with_bugs_03 import ProcessorWithBugs03
+from implementations.with_bugs_04 import ProcessorWithBugs04
+from implementations.with_bugs_05 import ProcessorWithBugs05
+from implementations.with_bugs_06 import ProcessorWithBugs06
+from implementations.with_bugs_07 import ProcessorWithBugs07
+from implementations.with_bugs_08 import ProcessorWithBugs08
+from implementations.with_bugs_09 import ProcessorWithBugs09
+from implementations.with_bugs_10 import ProcessorWithBugs10
+from implementations.with_bugs_11 import ProcessorWithBugs11
+from implementations.with_bugs_12 import ProcessorWithBugs12
+from implementations.with_bugs_13 import ProcessorWithBugs13
+from implementations.with_bugs_14 import ProcessorWithBugs14
 
+from implementations.store_order_processor import StoreOrderProcessor, StoreOrderProcessorException
 import test_store_order_processor
 
 # provide a bunch of broken implementations:

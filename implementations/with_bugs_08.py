@@ -1,8 +1,8 @@
 
 import json
-from store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
+from .store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
 
-class ProcessorWithBugs10: # explanation: says full outfit even if one of the quantities is 0
+class ProcessorWithBugs08: # explanation:  says full outfit regardless of brand
     def __init__(self):
         self.inventory = {}
         
@@ -88,7 +88,7 @@ class ProcessorWithBugs10: # explanation: says full outfit even if one of the qu
     """Searches a list and returns True if exists."""
     def search_in_list(self, list_of_items, type, brand):
         for item in list_of_items:
-            if item.get('type') == type and item.get('brand') == brand:
+            if item.get('type') == type and int(item.get('quantity')) > 0:
                 return True
         
         return False

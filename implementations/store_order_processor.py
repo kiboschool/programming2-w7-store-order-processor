@@ -1,6 +1,6 @@
 
 import json
-from store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
+from .store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
 
 class StoreOrderProcessor:
     def __init__(self):

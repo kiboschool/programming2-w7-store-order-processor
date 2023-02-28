@@ -1,8 +1,8 @@
 
 import json
-from store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
+from .store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
 
-class ProcessorWithBugs13: # explanation: bad inventory string
+class ProcessorWithBugs14: # explanation: wrong type of exception
     def __init__(self):
         self.inventory = {}
         
@@ -37,22 +37,22 @@ class ProcessorWithBugs13: # explanation: bad inventory string
         quantity = item.get('quantity')
 
         if type not in types:
-            raise StoreOrderProcessorException('Invalid item type')
+            raise Exception('Invalid item type')
             
         if brand not in brands:
-            raise StoreOrderProcessorException('Invalid item brand')
+            raise Exception('Invalid item brand')
 
         try:
             quantity = int(quantity)  # raises ValueError if not a number
         except ValueError:
-            raise StoreOrderProcessorException('Invalid quantity')
+            raise Exception('Invalid quantity')
         
         current_inventory = self.get_current_inventory(type, brand)
         current_inventory -= quantity
         
         # it's ok if the inventory is 0, but if it is less than 0 the order was not valid.
         if current_inventory < 0:
-            raise StoreOrderProcessorException('Out of stock')
+            raise Exception('Out of stock')
         
         self.set_current_inventory(type, brand, current_inventory)
 
@@ -64,9 +64,6 @@ class ProcessorWithBugs13: # explanation: bad inventory string
 
         for type in types:
             for brand in brands:
-                if brand == 'fruche':
-                    continue
-                    
                 current_inventory = self.get_current_inventory(type, brand)
                 result += f'{type} {brand} {current_inventory}\n'
                 

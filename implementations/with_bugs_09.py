@@ -1,8 +1,8 @@
 
 import json
-from store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
+from .store_order_processor_helpers import types, brands, starting_value, StoreOrderProcessorException
 
-class ProcessorWithBugs07: # explanation: still valid if exceeds inventory
+class ProcessorWithBugs09: # explanation: always says full outfit
     def __init__(self):
         self.inventory = {}
         
@@ -50,6 +50,9 @@ class ProcessorWithBugs07: # explanation: still valid if exceeds inventory
         current_inventory = self.get_current_inventory(type, brand)
         current_inventory -= quantity
         
+        # it's ok if the inventory is 0, but if it is less than 0 the order was not valid.
+        if current_inventory < 0:
+            raise StoreOrderProcessorException('Out of stock')
         
         self.set_current_inventory(type, brand, current_inventory)
 
@@ -75,20 +78,7 @@ class ProcessorWithBugs07: # explanation: still valid if exceeds inventory
     """This method checks if an order has a full outfit for a given brand.
     A full outfit means we have the full set of jacket, slacks, and shoes for a given brand."""
     def check_has_full_outfit_for_brand(self, list_of_items, brand):
-        for type in types:
-            if not self.search_in_list(list_of_items, type, brand):
-                return False
-
         return True
-        
-    
-    """Searches a list and returns True if exists."""
-    def search_in_list(self, list_of_items, type, brand):
-        for item in list_of_items:
-            if item.get('type') == type and item.get('brand') == brand and int(item.get('quantity')) > 0:
-                return True
-        
-        return False
 
     """This method processes a file containing a list of order items."""
     def process(self, filename):
