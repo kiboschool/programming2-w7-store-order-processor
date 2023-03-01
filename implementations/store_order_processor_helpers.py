@@ -1,4 +1,3 @@
-
 """The types and brands the store sells"""
 types = ['jacket', 'slacks', 'pair_of_shoes']
 brands = ['fruche', 'onalaja', 'kente']

@@ -1,4 +1,3 @@
-
 from implementations.store_order_processor import StoreOrderProcessor
 from implementations.with_bugs_01 import ProcessorWithBugs01
 from implementations.with_bugs_02 import ProcessorWithBugs02
@@ -15,12 +14,14 @@ from implementations.with_bugs_12 import ProcessorWithBugs12
 from implementations.with_bugs_13 import ProcessorWithBugs13
 from implementations.with_bugs_14 import ProcessorWithBugs14
 
-from implementations.store_order_processor import StoreOrderProcessor, StoreOrderProcessorException
+from implementations.store_order_processor import (
+    StoreOrderProcessor,
+    StoreOrderProcessorException,
+)
 import test_store_order_processor
 
-# provide a bunch of broken implementations:
+# These are broken implementations:
 # the tests running with these implementations should fail.
-
 
 classes = [
     ProcessorWithBugs01,
@@ -37,40 +38,46 @@ classes = [
     ProcessorWithBugs12,
     ProcessorWithBugs13,
     ProcessorWithBugs14,
-    StoreOrderProcessor
-    ]
+    StoreOrderProcessor,
+]
+
 
 def run_all_tests(Cls):
     test_store_order_processor.get_instance = lambda: Cls()
     test_instance = test_store_order_processor.TestStoreOrderProcessor()
     for method_name in dir(test_instance):
-        if method_name.startswith('test_'):
+        if method_name.startswith("test_"):
             try:
                 getattr(test_instance, method_name)()
             except NotImplementedError:
                 raise
             except:
-                raise AssertionError('test failed')
+                raise AssertionError("test failed")
+
 
 def test_tests():
     for Cls in classes:
         # all of these are broken except the reference implementation (StoreOrderProcessor)
         expect_tests_to_pass = Cls == StoreOrderProcessor
         try:
-            print(f'Running tests for {Cls.__name__}')
+            print(f"Running tests for {Cls.__name__}")
             run_all_tests(Cls)
             tests_passed = True
         except (AssertionError, StoreOrderProcessorException):
             tests_passed = False
-        
-        if expect_tests_to_pass and not tests_passed:
-            raise Exception(f'We expected the implementation {Cls.__name__} to pass tests, but it did not')
-            
-        if not expect_tests_to_pass and tests_passed:
-            raise Exception(f'We expected the buggy implementation {Cls.__name__} to fail tests, but it passed the tests')
-    
-    print('Complete')
 
-if __name__ == '__main__':
+        if expect_tests_to_pass and not tests_passed:
+            raise Exception(
+                f"We expected the implementation {Cls.__name__} to pass tests, but it did not"
+            )
+
+        if not expect_tests_to_pass and tests_passed:
+            raise Exception(
+                f"We expected the buggy implementation {Cls.__name__} to fail tests, but it passed the tests"
+            )
+
+    print("Complete")
+
+
+if __name__ == "__main__":
     test_tests()
-    
