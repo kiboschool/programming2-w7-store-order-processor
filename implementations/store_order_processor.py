@@ -72,33 +72,7 @@ class StoreOrderProcessor:
                 current_inventory = self.get_current_inventory(type, brand)
                 result += f"{type} {brand} {current_inventory}\n"
 
-        for brand in brands:
-            if self.check_has_full_outfit_for_brand(list_of_items, brand):
-                result += "This order contains a full outfit for a brand\n"
-                break
-
         return result
-
-    def check_has_full_outfit_for_brand(self, list_of_items, brand):
-        """This method checks if an order has a full outfit for a given brand.
-        A full outfit means we have the full set of jacket, slacks, and shoes for a given brand."""
-        for type in types:
-            if not self.search_in_list(list_of_items, type, brand):
-                return False
-
-        return True
-
-    def search_in_list(self, list_of_items, type, brand):
-        """Searches a list and returns True if matching item exists."""
-        for item in list_of_items:
-            if (
-                item.get("type") == type
-                and item.get("brand") == brand
-                and int(item.get("quantity")) > 0
-            ):
-                return True
-
-        return False
 
     def process(self, filename):
         """processes a file containing a list of order items."""

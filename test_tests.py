@@ -9,10 +9,6 @@ from implementations.with_bugs_07 import ProcessorWithBugs07
 from implementations.with_bugs_08 import ProcessorWithBugs08
 from implementations.with_bugs_09 import ProcessorWithBugs09
 from implementations.with_bugs_10 import ProcessorWithBugs10
-from implementations.with_bugs_11 import ProcessorWithBugs11
-from implementations.with_bugs_12 import ProcessorWithBugs12
-from implementations.with_bugs_13 import ProcessorWithBugs13
-from implementations.with_bugs_14 import ProcessorWithBugs14
 
 from implementations.store_order_processor import (
     StoreOrderProcessor,
@@ -34,10 +30,6 @@ classes = [
     ProcessorWithBugs08,
     ProcessorWithBugs09,
     ProcessorWithBugs10,
-    ProcessorWithBugs11,
-    ProcessorWithBugs12,
-    ProcessorWithBugs13,
-    ProcessorWithBugs14,
     StoreOrderProcessor,
 ]
 

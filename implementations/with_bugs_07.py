@@ -17,30 +17,26 @@ class ProcessorWithBugs07:  # explanation: still valid if exceeds inventory
             for brand in brands:
                 self.set_current_inventory(type, brand, starting_value)
 
-    """Returns the current inventory for a type and brand.
-    We use a dictionary to store the values."""
-
     def get_current_inventory(self, type, brand):
+        """Returns the current inventory for a type and brand.
+        We use a dictionary to store the values."""
         key = type + "_" + brand
         return self.inventory[key]
 
-    """Sets the current inventory for a type and brand."""
-
     def set_current_inventory(self, type, brand, value):
+        """Sets the current inventory for a type and brand."""
         key = type + "_" + brand
         self.inventory[key] = value
 
-    """This method processes a list of order items."""
-
     def process_list(self, list_of_items):
+        """This method processes a list of order items."""
         for item in list_of_items:
             self.process_one_item(item)
 
         return self.get_result_string(list_of_items)
 
-    """This method processes a single item and updates the inventory accordingly."""
-
     def process_one_item(self, item):
+        """This method processes a single item and updates the inventory accordingly."""
         type = item.get("type")
         brand = item.get("brand")
         quantity = item.get("quantity")
@@ -61,11 +57,10 @@ class ProcessorWithBugs07:  # explanation: still valid if exceeds inventory
 
         self.set_current_inventory(type, brand, current_inventory)
 
-    """This method returns a string representation of the inventory.
-    Types, brands, and quantities are separated by spaces.
-    Each item is on a new line."""
-
     def get_result_string(self, list_of_items):
+        """This method returns a string representation of the inventory.
+        Types, brands, and quantities are separated by spaces.
+        Each item is on a new line."""
         result = "Remaining inventory:\n"
 
         for type in types:
@@ -73,39 +68,10 @@ class ProcessorWithBugs07:  # explanation: still valid if exceeds inventory
                 current_inventory = self.get_current_inventory(type, brand)
                 result += f"{type} {brand} {current_inventory}\n"
 
-        for brand in brands:
-            if self.check_has_full_outfit_for_brand(list_of_items, brand):
-                result += "This order contains a full outfit for a brand\n"
-                break
-
         return result
 
-    """This method checks if an order has a full outfit for a given brand.
-    A full outfit means we have the full set of jacket, slacks, and shoes for a given brand."""
-
-    def check_has_full_outfit_for_brand(self, list_of_items, brand):
-        for type in types:
-            if not self.search_in_list(list_of_items, type, brand):
-                return False
-
-        return True
-
-    """Searches a list and returns True if exists."""
-
-    def search_in_list(self, list_of_items, type, brand):
-        for item in list_of_items:
-            if (
-                item.get("type") == type
-                and item.get("brand") == brand
-                and int(item.get("quantity")) > 0
-            ):
-                return True
-
-        return False
-
-    """This method processes a file containing a list of order items."""
-
     def process(self, filename):
+        """This method processes a file containing a list of order items."""
         with open(filename, "r") as file:
             list_of_items = json.load(file)
 

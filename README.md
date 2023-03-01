@@ -55,40 +55,6 @@ pair_of_shoes onalaja 20
 pair_of_shoes kente 20
 ```
 
-### Full outfits
-
-If an order includes at least one jacket, slacks, and pair\_of\_shoes from the same brand, the order has a full outfit. When an order contains one or more full outfits for a brand, the program should print "This order contains a full outfit for a brand" at the end.
-
-So for this input:
-
-```json
-[
-    {"type": "jacket", "brand": "fruche", "quantity": "2"},
-    {"type": "slacks", "brand": "kente", "quantity": "1"},
-    {"type": "slacks", "brand": "fruche", "quantity": "1"},
-    {"type": "pair_of_shoes", "brand": "fruche", "quantity": "1"}
-]
-
-```
-
-The output should be this:
-
-```
-Remaining inventory:
-jacket fruche 18
-jacket onalaja 20
-jacket kente 20
-slacks fruche 19
-slacks onalaja 20
-slacks kente 19
-pair_of_shoes fruche 19
-pair_of_shoes onalaja 20
-pair_of_shoes kente 20
-This order contains a full outfit for a brand
-```
-
-If there are jackets from fruche, slacks from fruche, and pair\_of\_shoes from kente, this does not count as a full outfit because they were not from the same brand.
-
 ### Explore the program
 
 For Part 1, you don't need to write any code. Complete the following steps to understand what the program is doing:
@@ -102,7 +68,6 @@ For Part 1, you don't need to write any code. Complete the following steps to un
 In summary, here are the features that exist in `implementations/store_order_processor.py`:
 
 * Ordering an item subtracts it from the inventory.
-* If there is a full outfit, show the "This order contains a full outfit" string.
 * An order that uses more than the available inventory is not valid.
 * If input is not valid, raise an `StoreOrderProcessorException`.
 * The inventory is displayed after each order.

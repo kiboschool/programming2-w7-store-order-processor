@@ -124,56 +124,6 @@ class TestStoreOrderProcessor(unittest.TestCase):
         raise NotImplementedError
 
     # This test is already written for you.
-    def test_has_a_complete_outfit(self):
-        """Tests that the StoreOrderProcessor correctly processes a list of items that contains a full outfit."""
-        processor = get_instance()
-        results = processor.process_list(
-            [
-                {"type": "jacket", "brand": "onalaja", "quantity": "2"},
-                {"type": "slacks", "brand": "onalaja", "quantity": "2"},
-                {"type": "pair_of_shoes", "brand": "onalaja", "quantity": "1"},
-            ]
-        )
-        assert_equal_ignoring_space(
-            results,
-            """Remaining inventory:
-                                                    jacket fruche 20
-                                                    jacket onalaja 18
-                                                    jacket kente 20
-                                                    slacks fruche 20
-                                                    slacks onalaja 18
-                                                    slacks kente 20
-                                                    pair_of_shoes fruche 20
-                                                    pair_of_shoes onalaja 19
-                                                    pair_of_shoes kente 20
-                                                    This order contains a full outfit for a brand""",
-        )
-
-    def test_should_not_say_full_outfit_regardless_of_brand(self):
-        """Test that the StoreOrderProcessor don't print the full outfit message if the items are not all the same brand."""
-        # TODO: write a test here
-        # a full outfit must be only all for the same brand - if one of the items is a different brand, it doesn't count.
-        raise NotImplementedError
-
-    def test_should_not_say_full_outfit_if_there_are_2_slacks_and_1_jacket(self):
-        """Test that the StoreOrderProcessor don't print the full outfit message if there isn't an item of each type."""
-        # TODO: write a test here
-        # it's not a full outfit if there is no pair_of_shoes
-        raise NotImplementedError
-
-    def test_should_not_say_full_outfit_even_if_one_of_the_quantities_is_0(self):
-        """Test that the StoreOrderProcessor don't print the full outfit message if there isn't an item of each type."""
-        # TODO: write a test here
-        # Edge case where quantity is 0. It is not a full outfit if one of the items has quantity = 0!
-        raise NotImplementedError
-
-    def test_should_still_work_if_given_2_complete_outfits(self):
-        """Test that the StoreOrderProcessor prints the full outfit message only one time
-        if given a list of items contains more than full outfit."""
-        # TODO: write a test here
-        raise NotImplementedError
-
-    # This test is already written for you.
     def test_should_handle_invalid_type(self):
         """Test that the StoreOrderProcessor raises a StoreOrderProcessorException exception when given an invalid type."""
         with self.assertRaises(StoreOrderProcessorException):
