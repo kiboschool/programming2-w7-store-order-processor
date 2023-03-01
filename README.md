@@ -89,6 +89,8 @@ This order contains a full outfit for a brand
 
 If there are jackets from fruche, slacks from fruche, and pair\_of\_shoes from kente, this does not count as a full outfit because they were not from the same brand.
 
+### Explore the program
+
 For Part 1, you don't need to write any code. Complete the following steps to understand what the program is doing:
 
 * Run `main.py` and see the results.
@@ -108,17 +110,16 @@ In summary, here are the features that exist in `implementations/store_order_pro
 
 ## Part Two: Writing Tests
 
-The next part of the assignment is to write tests that check that the `StoreOrderProcessor` implementation works correctly. For this project, unlike the others, we have given you the actual code and your task is to write the tests.
+The next part of the assignment is to write tests that check that the `StoreOrderProcessor` implementation works correctly.
 
-Please edit the file `test_store_order_processor.py`. See the `TODO` comments in the file. For each `TODO` comment, write a test. The existing tests in the file are good examples to go off of.
+Edit `test_store_order_processor.py`. See the `TODO` comments in the file. For each `TODO` comment, write a test. The existing tests in the file show examples of how to set up and test the order processor.
 
-Once you have written the tests, try running them by running `test_store_order_processor.py`. All of the tests should pass.
+Run the tests with `python test_store_order_processor.py`. All the tests should pass.
 
-The next step is fun. Notice all of the files like `implementations/with_bugs_01.py`. These are all different Store Order Processors that have bugs, realistic bugs that could happen. If the tests are working correctly, they will detect the bugs. In other words - if you pass a buggy implementation to your tests, you would expect one or more of the tests to fail! You can try this. Read the buggy implementations - a comment at the top of the file describes the problem.
+The next step is fun. Notice all of the files like `implementations/with_bugs_01.py`. These are different Store Order Processors that have realistic bugs. If the tests are working correctly, they will detect the bugs. In other words - if you pass a buggy implementation to your tests, you would expect one or more of the tests to fail! You can try this. Read the buggy implementations - a comment at the top of the file describes the problem.
 
 We have provided a file `test_tests.py` - a Python program that tests the tests. It loops through every `with_bugs` file, runs the tests on it, and confirms that the tests have a failure. If the tests did not have a failure, they are allowing a buggy program to pass, which isn't right.
 
-You can run this file, and if it runs with no errors, your project is complete. (This script is how the project is autograded. You will see the GitHub actions status turn green when your project is complete.).
+Test the tests you've written by running `test_tests.py`. If it runs with no errors, your tests are catching the right bugs. The `test_tests.py` tests are how the project will be autograded.
 
 <img src="img/sh2.png" width="64" height="64" /> <img src="img/sh1.png" width="64" height="64" /> <img src="img/sla2.png" width="64" height="85" /> <img src="img/sla1.png" width="64" height="80" /> <img src="img/sui2.png" width="64" height="64" /> <img src="img/sui1.png" width="64" height="64" /> <img src="img/sh2.png" width="64" height="64" /> <img src="img/sh1.png" width="64" height="64" /> <img src="img/sla2.png" width="64" height="85" /> <img src="img/sla1.png" width="64" height="80" /> <img src="img/sui2.png" width="64" height="64" /> <img src="img/sui1.png" width="64" height="64" />
-
