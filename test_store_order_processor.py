@@ -4,8 +4,6 @@ from implementations.store_order_processor import (
     StoreOrderProcessorException,
 )
 
-from gradescope_utils.autograder_utils.decorators import weight
-
 
 #########
 # Helper Functions
@@ -34,7 +32,6 @@ def assert_equal_ignoring_space(s1, s2):
 
 
 class TestStoreOrderProcessor(unittest.TestCase):
-    @weight(2)
     def test_processing_order_reduces_inventory(self):
         # This test processes an order and checks that the inventory is reduced
         processor = get_instance()
@@ -42,7 +39,6 @@ class TestStoreOrderProcessor(unittest.TestCase):
         processor.process_list([{"type": "jacket", "brand": "fruche", "quantity": "2"}])
         assert processor.get_current_inventory("jacket", "fruche") == 18
 
-    @weight(2)
     def test_processing_multiple_orders_reduces_inventory(self):
         # This test should check that processing a list of orders reduces the inventory for each of the items
         processor = get_instance()
@@ -57,7 +53,6 @@ class TestStoreOrderProcessor(unittest.TestCase):
         assert processor.get_current_inventory("jacket", "fruche") == 18
         assert processor.get_current_inventory("slacks", "kente") == 1
 
-    @weight(2)
     def test_processes_order_and_displays_output(self):
         processor = get_instance()
         results = processor.process_list(
@@ -77,7 +72,6 @@ class TestStoreOrderProcessor(unittest.TestCase):
                                                     pair_of_shoes kente 20""",
         )
 
-    @weight(2)
     def test_still_valid_if_inventory_leaves_one_remaining(self):
         """Tests that the StoreOrderProcessor correctly subtracts from the inventory."""
         processor = get_instance()
@@ -101,7 +95,6 @@ class TestStoreOrderProcessor(unittest.TestCase):
                                                     pair_of_shoes kente 20""",
         )
 
-    @weight(2)
     def test_still_valid_if_inventory_leaves_zero_remaining(self):
         """Test that the StoreOrderProcessor correctly processes a list of items leaving zero remaining."""
         # An inventory of 0 is valid.
@@ -127,7 +120,6 @@ pair_of_shoes onalaja 20
 pair_of_shoes kente 20""",
         )
 
-    @weight(2)
     def test_not_valid_if_exceeds_inventory(self):
         """Test that the StoreOrderProcessor raises a StoreOrderProcessorException exception when given an order that exceeds the inventory"""
         with self.assertRaises(StoreOrderProcessorException):
@@ -139,7 +131,6 @@ pair_of_shoes kente 20""",
                 ]
             )
 
-    @weight(2)
     def test_raises_error_if_orders_exceed_inventory(self):
         """Tests that the StoreOrderProcessor raises a StoreOrderProcessorException exception when given an order that exceeds the inventory, across separate items."""
         with self.assertRaises(StoreOrderProcessorException):
@@ -152,7 +143,6 @@ pair_of_shoes kente 20""",
                 ]
             )
 
-    @weight(2)
     def test_should_handle_invalid_type(self):
         """Test that the StoreOrderProcessor raises a StoreOrderProcessorException exception when given an invalid type."""
         with self.assertRaises(StoreOrderProcessorException):
@@ -164,7 +154,6 @@ pair_of_shoes kente 20""",
                 ]
             )
 
-    @weight(2)
     def test_should_handle_invalid_brand(self):
         """Test that the StoreOrderProcessor raises a StoreOrderProcessorException exception when given an invalid brand."""
         with self.assertRaises(StoreOrderProcessorException):
@@ -176,7 +165,6 @@ pair_of_shoes kente 20""",
                 ]
             )
 
-    @weight(2)
     def test_should_handle_empty_string_quantity(self):
         """Test that the StoreOrderProcessor raises a StoreOrderProcessorException exception when given an empty quantity."""
         with self.assertRaises(StoreOrderProcessorException):
@@ -188,7 +176,6 @@ pair_of_shoes kente 20""",
                 ]
             )
 
-    @weight(2)
     def test_should_handle_alphabetic_quantity(self):
         """Test that the StoreOrderProcessor raises a StoreOrderProcessorException exception when given a string quantity."""
         with self.assertRaises(StoreOrderProcessorException):
