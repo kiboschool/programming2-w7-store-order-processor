@@ -29,47 +29,47 @@ from gradescope_utils.autograder_utils.decorators import weight
 
 class TestTests(unittest.TestCase):
         
-    @weight(1)
+    @weight(2.8)
     def test_with_bugs_01(self):
         self._run_test(ProcessorWithBugs01, expect_pass=False)
         
-    @weight(1)
+    @weight(2.8)
     def test_with_bugs_02(self):
         self._run_test(ProcessorWithBugs02, expect_pass=False)
         
-    @weight(1)
+    @weight(2.8)
     def test_with_bugs_03(self):
         self._run_test(ProcessorWithBugs03, expect_pass=False)
         
-    @weight(1)
+    @weight(2.8)
     def test_with_bugs_04(self):
         self._run_test(ProcessorWithBugs04, expect_pass=False)
         
-    @weight(1)
+    @weight(2.8)
     def test_with_bugs_05(self):
         self._run_test(ProcessorWithBugs05, expect_pass=False)
         
-    @weight(1)
+    @weight(2.8)
     def test_with_bugs_06(self):
         self._run_test(ProcessorWithBugs06, expect_pass=False)
         
-    @weight(1)
+    @weight(2.8)
     def test_with_bugs_07(self):
         self._run_test(ProcessorWithBugs07, expect_pass=False)
         
-    @weight(1)
+    @weight(2.8)
     def test_with_bugs_08(self):
         self._run_test(ProcessorWithBugs08, expect_pass=False)
         
-    @weight(1)
+    @weight(2.8)
     def test_with_bugs_09(self):
         self._run_test(ProcessorWithBugs09, expect_pass=False)
         
-    @weight(1)
+    @weight(2.8)
     def test_with_bugs_10(self):
         self._run_test(ProcessorWithBugs10, expect_pass=False)
         
-    @weight(1)
+    @weight(2)
     def test_correct_implementation(self):
         self._run_test(StoreOrderProcessor, expect_pass=True)
 
